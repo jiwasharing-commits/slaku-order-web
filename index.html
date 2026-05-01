@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slaku Order</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <div class="container">
+        <p class="brand">Slaku</p>
+        <h1>Pesan Slaku Sekarang</h1>
+        <p class="subtitle">
+          Kopi, matcha, cookies, cheese tart, dan dessert creamy siap menemani
+          harimu.
+        </p>
+        <a href="#menu" class="btn btn-primary">Lihat Menu</a>
+      </div>
+    </header>
+
+    <main class="container layout">
+      <section class="card" id="menu">
+        <h2>Menu Slaku</h2>
+        <p class="section-note">Pilih produk favoritmu lalu tambahkan ke keranjang.</p>
+        <div id="product-list" class="product-list">
+          <!-- Fallback menu: tetap tampil jika JavaScript gagal dimuat -->
+          <article class="product-item">
+            <strong>Kopi Susu Slaku 250ml</strong>
+            <span class="product-meta">Coffee • Rp15.000</span>
+          </article>
+          <article class="product-item">
+            <strong>Matcha Latte 250ml</strong>
+            <span class="product-meta">Matcha • Rp18.000</span>
+          </article>
+          <article class="product-item">
+            <strong>Chocolate Creamy 250ml</strong>
+            <span class="product-meta">Chocolate • Rp17.000</span>
+          </article>
+          <article class="product-item">
+            <strong>Brown Butter Dark Chocolate Cookies</strong>
+            <span class="product-meta">Cookies • Rp12.000</span>
+          </article>
+          <article class="product-item">
+            <strong>Hokkaido Cheese Tart</strong>
+            <span class="product-meta">Dessert • Rp15.000</span>
+          </article>
+          <article class="product-item">
+            <strong>Tiramisu Cup</strong>
+            <span class="product-meta">Dessert • Rp20.000</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="card" id="cart-section">
+        <h2>Keranjang</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cart-total-price">Rp0</strong>
+        </div>
+      </section>
+
+      <section class="card" id="customer-form-section">
+        <h2>Detail Pemesan</h2>
+        <form id="order-form">
+          <label>
+            Nama Pelanggan
+            <input type="text" id="customer-name" placeholder="Nama lengkap" required />
+          </label>
+
+          <label>
+            Nomor WhatsApp
+            <input type="tel" id="customer-phone" placeholder="08xxxxxxxxxx" required />
+          </label>
+
+          <fieldset>
+            <legend>Metode Pesanan</legend>
+            <label class="radio">
+              <input type="radio" name="order-method" value="Pickup" checked /> Pickup
+            </label>
+            <label class="radio">
+              <input type="radio" name="order-method" value="Delivery" /> Delivery
+            </label>
+          </fieldset>
+
+          <label id="address-wrapper" class="hidden">
+            Alamat Pengiriman
+            <textarea id="customer-address" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
+          </label>
+
+          <label>
+            Catatan Pesanan
+            <textarea id="order-notes" rows="3" placeholder="Contoh: less sugar, tanpa es"></textarea>
+          </label>
+
+          <button type="submit" class="btn btn-primary btn-full">Checkout via WhatsApp</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
