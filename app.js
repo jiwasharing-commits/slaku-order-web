@@ -90,9 +90,13 @@ function renderProducts() {
     const productCard = document.createElement("article");
     productCard.className = "product-item";
     productCard.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy" />
-      <strong>${product.name}</strong>
-      <span class="product-meta">${product.category} • ${formatRupiah(product.price)}</span>
+      <div class="product-main">
+        <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy" />
+        <div>
+          <strong>${product.name}</strong>
+          <span class="product-meta">${product.category} • ${formatRupiah(product.price)}</span>
+        </div>
+      </div>
       <button class="btn btn-outline" data-add-id="${product.id}">Tambah ke Keranjang</button>
     `;
 
