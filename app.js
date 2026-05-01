@@ -1,5 +1,5 @@
 // ===== EDIT DI SINI: Nomor WhatsApp tujuan checkout =====
-const ADMIN_WHATSAPP_NUMBER = "6281210907159";
+const ADMIN_WHATSAPP_NUMBER = "081210907159";
 
 // ===== EDIT DI SINI: Daftar produk katalog =====
 const products = [
@@ -28,6 +28,20 @@ const formatRupiah = (value) =>
     currency: "IDR",
     maximumFractionDigits: 0
   }).format(value);
+
+function normalizeWhatsAppNumber(number) {
+  const digits = number.replace(/\D/g, "");
+
+  if (digits.startsWith("0")) {
+    return `62${digits.slice(1)}`;
+  }
+
+  if (digits.startsWith("62")) {
+    return digits;
+  }
+
+  return digits;
+}
 
 function saveCart() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
@@ -182,7 +196,8 @@ orderForm.addEventListener("submit", (event) => {
   };
 
   const message = generateWhatsAppMessage(formData);
-  const whatsappUrl = `https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  const targetNumber = normalizeWhatsAppNumber(ADMIN_WHATSAPP_NUMBER);
+  const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, "_blank");
 });
 
