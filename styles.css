@@ -20,6 +20,8 @@ body { margin:0; font-family: Segoe UI,Tahoma,sans-serif; color:var(--text-dark)
 .filter-btn.is-active { background:var(--matcha-soft); border-color:var(--matcha-soft); }
 .product-list { display:grid; gap:.7rem; }
 .product-item { border:1px solid #e7ddd3; border-radius:10px; padding:.85rem; display:grid; gap:.65rem; }
+.product-main { display:grid; grid-template-columns:72px 1fr; gap:.7rem; align-items:start; }
+.product-thumb { width:72px; height:72px; border-radius:8px; object-fit:cover; }
 .product-meta { display:block; color:#6e6259; font-size:.9rem; margin-top:.2rem; }
 .product-desc { margin:.4rem 0; color:#4b423b; font-size:.92rem; }
 .product-price { margin:0; font-weight:700; }

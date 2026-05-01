@@ -3,17 +3,17 @@ const STORAGE_KEY = "slaku_cart";
 
 // Edit data menu Slaku di sini.
 const products = [
-  { id: 1, name: "Cheese Tart D20 Large Original", category: "Cheese Tart", variant: "D20 Large", price: 170000, description: "Cheese tart ukuran besar dengan rasa original creamy cheese, cocok untuk sharing atau acara keluarga." },
-  { id: 2, name: "Cheese Tart D20 Large Matcha", category: "Cheese Tart", variant: "D20 Large", price: 195000, description: "Cheese tart ukuran besar dengan varian matcha creamy, cocok untuk pecinta matcha." },
-  { id: 3, name: "Cheese Tart D18 Medium Original", category: "Cheese Tart", variant: "D18 Medium", price: 140000, description: "Ukuran medium dengan rasa original creamy cheese, cocok untuk hadiah atau makan bersama." },
-  { id: 4, name: "Cheese Tart D10 Small Original", category: "Cheese Tart", variant: "D10 Small", price: 35000, description: "Ukuran kecil, cocok untuk porsi personal atau sharing kecil." },
-  { id: 5, name: "Cheese Tart Slice Original", category: "Cheese Tart", variant: "Slice", price: 27000, description: "Potongan cheese tart praktis untuk sekali makan." },
-  { id: 6, name: "Matcha 1 Liter", category: "Matcha", variant: "1 Liter", price: 95000, description: "Matcha creamy ukuran besar, cocok untuk sharing atau stok di rumah." },
-  { id: 7, name: "Matcha 200 ml", category: "Matcha", variant: "200 ml", price: 20000, description: "Matcha creamy ukuran personal, praktis untuk sekali minum." },
-  { id: 8, name: "Coklat 1 Liter", category: "Coklat", variant: "1 Liter", price: 80000, description: "Minuman coklat creamy ukuran besar dengan rasa rich dan lembut." },
-  { id: 9, name: "Coklat 200 ml", category: "Coklat", variant: "200 ml", price: 17000, description: "Minuman coklat creamy ukuran personal." },
-  { id: 10, name: "Kopi 1 Liter", category: "Kopi", variant: "1 Liter", price: 80000, description: "Kopi susu creamy ukuran besar dengan rasa smooth dan seimbang." },
-  { id: 11, name: "Kopi 200 ml", category: "Kopi", variant: "200 ml", price: 17000, description: "Kopi susu creamy ukuran personal, praktis untuk sekali minum." }
+  { id: 1, name: "Cheese Tart D20 Large Original", category: "Cheese Tart", variant: "D20 Large", price: 170000, image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80", description: "Cheese tart ukuran besar dengan rasa original creamy cheese, cocok untuk sharing atau acara keluarga." },
+  { id: 2, name: "Cheese Tart D20 Large Matcha", category: "Cheese Tart", variant: "D20 Large", price: 195000, image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=80", description: "Cheese tart ukuran besar dengan varian matcha creamy, cocok untuk pecinta matcha." },
+  { id: 3, name: "Cheese Tart D18 Medium Original", category: "Cheese Tart", variant: "D18 Medium", price: 140000, image: "https://images.unsplash.com/photo-1464306076886-da185f6a9d05?auto=format&fit=crop&w=500&q=80", description: "Ukuran medium dengan rasa original creamy cheese, cocok untuk hadiah atau makan bersama." },
+  { id: 4, name: "Cheese Tart D10 Small Original", category: "Cheese Tart", variant: "D10 Small", price: 35000, image: "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=500&q=80", description: "Ukuran kecil, cocok untuk porsi personal atau sharing kecil." },
+  { id: 5, name: "Cheese Tart Slice Original", category: "Cheese Tart", variant: "Slice", price: 27000, image: "https://images.unsplash.com/photo-1470124182917-cc6e71b22ecc?auto=format&fit=crop&w=500&q=80", description: "Potongan cheese tart praktis untuk sekali makan." },
+  { id: 6, name: "Matcha 1 Liter", category: "Matcha", variant: "1 Liter", price: 95000, image: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=500&q=80", description: "Matcha creamy ukuran besar, cocok untuk sharing atau stok di rumah." },
+  { id: 7, name: "Matcha 200 ml", category: "Matcha", variant: "200 ml", price: 20000, image: "https://images.unsplash.com/photo-1627485937980-221c88ac04f9?auto=format&fit=crop&w=500&q=80", description: "Matcha creamy ukuran personal, praktis untuk sekali minum." },
+  { id: 8, name: "Coklat 1 Liter", category: "Coklat", variant: "1 Liter", price: 80000, image: "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?auto=format&fit=crop&w=500&q=80", description: "Minuman coklat creamy ukuran besar dengan rasa rich dan lembut." },
+  { id: 9, name: "Coklat 200 ml", category: "Coklat", variant: "200 ml", price: 17000, image: "https://images.unsplash.com/photo-1542990253-0d0f5be5f88c?auto=format&fit=crop&w=500&q=80", description: "Minuman coklat creamy ukuran personal." },
+  { id: 10, name: "Kopi 1 Liter", category: "Kopi", variant: "1 Liter", price: 80000, image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=500&q=80", description: "Kopi susu creamy ukuran besar dengan rasa smooth dan seimbang." },
+  { id: 11, name: "Kopi 200 ml", category: "Kopi", variant: "200 ml", price: 17000, image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=80", description: "Kopi susu creamy ukuran personal, praktis untuk sekali minum." }
 ];
 
 const categories = ["Semua", "Cheese Tart", "Matcha", "Coklat", "Kopi"];
@@ -47,6 +47,7 @@ function renderProducts() {
     .map((p) => `
       <article class="product-item">
         <div class="product-main">
+          <img src="${p.image}" alt="${p.name}" class="product-thumb" loading="lazy" />
           <div>
             <strong>${p.name}</strong>
             <span class="product-meta">${p.category} • ${p.variant}</span>
