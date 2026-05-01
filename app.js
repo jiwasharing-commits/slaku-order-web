@@ -20,15 +20,16 @@ const categories = ["Semua", "Cheese Tart", "Matcha", "Coklat", "Kopi"];
 let activeCategory = "Semua";
 let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
+const PICKUP_ADDRESS = "Jalan Saribanon Blok H/5 Komplek Ciceri Indah Serang Banten (Masuk Dari Dokterlinda/Indomaret, gang ke dua belok kanan).";
+const PICKUP_MAPS = "https://www.google.com/maps/@-6.1236109,106.1695275,3a,75y,15.56h,91.43t/data=!3m7!1e1!3m5!1sXPcLbsiYoNQ0tajxKJ062g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.4286645527671311%26panoid%3DXPcLbsiYoNQ0tajxKJ062g%26yaw%3D15.562582619847838!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D";
+
 const el = {
   productList: document.getElementById("product-list"),
   filters: document.getElementById("category-filters"),
   cartItems: document.getElementById("cart-items"),
   subtotal: document.getElementById("cart-subtotal-price"),
   total: document.getElementById("cart-total-price"),
-  form: document.getElementById("order-form"),
-  addressWrap: document.getElementById("address-wrapper"),
-  address: document.getElementById("customer-address")
+  form: document.getElementById("order-form")
 };
 
 const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
@@ -113,16 +114,10 @@ function renderCart() {
   el.total.textContent = rupiah(total);
 }
 
-function toggleAddress() {
-  const isDelivery = document.querySelector('input[name="order-method"]:checked').value === "Delivery";
-  el.addressWrap.classList.toggle("hidden", !isDelivery);
-  el.address.required = isDelivery;
-}
-
 function checkoutMessage(data) {
   const detail = cart.map((i, idx) => `${idx + 1}. ${i.name} x${i.quantity} = ${rupiah(i.price * i.quantity)}`).join("\n");
   const total = rupiah(totalPrice());
-  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nAlamat: ${data.address || "-"}\nCatatan: ${data.notes || "-"}\nJam ${data.method}: ${data.time}\n\nDetail Pesanan:\n${detail}\n\nSubtotal: ${total}\nTotal: ${total}\n\nTerima kasih.`;
+  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nAlamat Pickup: ${PICKUP_ADDRESS}\nGoogle Maps: ${PICKUP_MAPS}\nJam Pickup: ${data.time}\n\nDetail Pesanan:\n${detail}\n\nSubtotal: ${total}\nTotal: ${total}\n\nTerima kasih.`;
 }
 
 el.filters.addEventListener("click", (e) => {
@@ -145,17 +140,13 @@ el.cartItems.addEventListener("click", (e) => {
   if (remove) removeItem(Number(remove.dataset.removeId));
 });
 
-el.form.addEventListener("change", (e) => { if (e.target.name === "order-method") toggleAddress(); });
-
 el.form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!cart.length) return alert("Keranjang masih kosong.");
   const formData = {
     name: document.getElementById("customer-name").value.trim(),
     phone: document.getElementById("customer-phone").value.trim(),
-    method: document.querySelector('input[name="order-method"]:checked').value,
-    address: el.address.value.trim(),
-    notes: document.getElementById("order-notes").value.trim(),
+    method: "Pickup Mandiri / Pickup Kurir (Gojek/Maxim)",
     time: document.getElementById("order-time").value
   };
   const url = `https://wa.me/${waNumber(ADMIN_WHATSAPP_NUMBER)}?text=${encodeURIComponent(checkoutMessage(formData))}`;
@@ -165,4 +156,3 @@ el.form.addEventListener("submit", (e) => {
 renderFilters();
 renderProducts();
 renderCart();
-toggleAddress();

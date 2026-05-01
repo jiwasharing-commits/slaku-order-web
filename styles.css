@@ -45,3 +45,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .empty-state { color:#6e6259; }
 .btn-full { width:100%; }
 @media (min-width:768px){ .hero h1{font-size:2.4rem;} }
+
+.pickup-info { background:#f3ece2; border:1px solid #e2d3c4; border-radius:10px; padding:.75rem; font-size:.92rem; color:#4b423b; }
+.pickup-info p { margin:.25rem 0; }
+.pickup-info a { color:#5a3d2b; font-weight:600; }

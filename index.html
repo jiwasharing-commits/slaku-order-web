@@ -40,13 +40,16 @@
 
           <fieldset>
             <legend>Metode Pesanan</legend>
-            <label class="radio"><input type="radio" name="order-method" value="Pickup" checked /> Pickup</label>
-            <label class="radio"><input type="radio" name="order-method" value="Delivery" /> Delivery</label>
+            <label class="radio"><input type="radio" name="order-method" value="Pickup Mandiri / Pickup Kurir (Gojek/Maxim)" checked /> Pickup Mandiri / Pickup Kurir (Gojek/Maxim)</label>
           </fieldset>
 
-          <label>Jam Pickup / Delivery<input type="time" id="order-time" required /></label>
-          <label id="address-wrapper" class="hidden">Alamat<textarea id="customer-address" rows="3"></textarea></label>
-          <label>Catatan<textarea id="order-notes" rows="3" placeholder="Contoh: kirim sore, kurang manis"></textarea></label>
+          <label>Jam Pickup<input type="time" id="order-time" required /></label>
+
+          <div class="pickup-info">
+            <p><strong>Alamat Pickup Slaku:</strong></p>
+            <p>Jalan Saribanon Blok H/5 Komplek Ciceri Indah Serang Banten (Masuk Dari Dokterlinda/Indomaret, gang ke dua belok kanan).</p>
+            <p><a href="https://www.google.com/maps/@-6.1236109,106.1695275,3a,75y,15.56h,91.43t/data=!3m7!1e1!3m5!1sXPcLbsiYoNQ0tajxKJ062g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.4286645527671311%26panoid%3DXPcLbsiYoNQ0tajxKJ062g%26yaw%3D15.562582619847838!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Lihat Google Maps Pickup</a></p>
+          </div>
 
           <button type="submit" class="btn btn-primary btn-full">Checkout via WhatsApp</button>
         </form>
