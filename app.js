@@ -1,5 +1,5 @@
 // ===== EDIT DI SINI: Nomor WhatsApp tujuan checkout =====
-const ADMIN_WHATSAPP_NUMBER = "081210907159";
+const ADMIN_WHATSAPP_NUMBER = "6281210907159"; // 081210907159
 
 // ===== EDIT DI SINI: Daftar produk katalog =====
 const products = [
