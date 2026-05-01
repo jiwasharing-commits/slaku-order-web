@@ -1,245 +1,167 @@
-// ===== EDIT DI SINI: Nomor WhatsApp tujuan checkout =====
 const ADMIN_WHATSAPP_NUMBER = "6281210907159"; // 081210907159
-
-// ===== EDIT DI SINI: Daftar produk katalog =====
-const products = [
-  {
-    id: 1,
-    name: "Kopi Susu Slaku 250ml",
-    price: 15000,
-    category: "Coffee",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80"
-  },
-  {
-    id: 2,
-    name: "Matcha Latte 250ml",
-    price: 18000,
-    category: "Matcha",
-    image: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=900&q=80"
-  },
-  {
-    id: 3,
-    name: "Chocolate Creamy 250ml",
-    price: 17000,
-    category: "Chocolate",
-    image: "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?auto=format&fit=crop&w=900&q=80"
-  },
-  {
-    id: 4,
-    name: "Brown Butter Dark Chocolate Cookies",
-    price: 12000,
-    category: "Cookies",
-    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=900&q=80"
-  },
-  {
-    id: 5,
-    name: "Hokkaido Cheese Tart",
-    price: 15000,
-    category: "Dessert",
-    image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80"
-  },
-  {
-    id: 6,
-    name: "Tiramisu Cup",
-    price: 20000,
-    category: "Dessert",
-    image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80"
-  }
-];
-
 const STORAGE_KEY = "slaku_cart";
 
-const productListEl = document.getElementById("product-list");
-const cartItemsEl = document.getElementById("cart-items");
-const totalPriceEl = document.getElementById("cart-total-price");
-const orderForm = document.getElementById("order-form");
-const addressWrapper = document.getElementById("address-wrapper");
-const addressInput = document.getElementById("customer-address");
+// Edit data menu Slaku di sini.
+const products = [
+  { id: 1, name: "Cheese Tart D20 Large Original", category: "Cheese Tart", variant: "D20 Large", price: 170000, description: "Cheese tart ukuran besar dengan rasa original creamy cheese, cocok untuk sharing atau acara keluarga." },
+  { id: 2, name: "Cheese Tart D20 Large Matcha", category: "Cheese Tart", variant: "D20 Large", price: 195000, description: "Cheese tart ukuran besar dengan varian matcha creamy, cocok untuk pecinta matcha." },
+  { id: 3, name: "Cheese Tart D18 Medium Original", category: "Cheese Tart", variant: "D18 Medium", price: 140000, description: "Ukuran medium dengan rasa original creamy cheese, cocok untuk hadiah atau makan bersama." },
+  { id: 4, name: "Cheese Tart D10 Small Original", category: "Cheese Tart", variant: "D10 Small", price: 35000, description: "Ukuran kecil, cocok untuk porsi personal atau sharing kecil." },
+  { id: 5, name: "Cheese Tart Slice Original", category: "Cheese Tart", variant: "Slice", price: 27000, description: "Potongan cheese tart praktis untuk sekali makan." },
+  { id: 6, name: "Matcha 1 Liter", category: "Matcha", variant: "1 Liter", price: 95000, description: "Matcha creamy ukuran besar, cocok untuk sharing atau stok di rumah." },
+  { id: 7, name: "Matcha 200 ml", category: "Matcha", variant: "200 ml", price: 20000, description: "Matcha creamy ukuran personal, praktis untuk sekali minum." },
+  { id: 8, name: "Coklat 1 Liter", category: "Coklat", variant: "1 Liter", price: 80000, description: "Minuman coklat creamy ukuran besar dengan rasa rich dan lembut." },
+  { id: 9, name: "Coklat 200 ml", category: "Coklat", variant: "200 ml", price: 17000, description: "Minuman coklat creamy ukuran personal." },
+  { id: 10, name: "Kopi 1 Liter", category: "Kopi", variant: "1 Liter", price: 80000, description: "Kopi susu creamy ukuran besar dengan rasa smooth dan seimbang." },
+  { id: 11, name: "Kopi 200 ml", category: "Kopi", variant: "200 ml", price: 17000, description: "Kopi susu creamy ukuran personal, praktis untuk sekali minum." }
+];
 
+const categories = ["Semua", "Cheese Tart", "Matcha", "Coklat", "Kopi"];
+let activeCategory = "Semua";
 let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-const formatRupiah = (value) =>
-  new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    maximumFractionDigits: 0
-  }).format(value);
+const el = {
+  productList: document.getElementById("product-list"),
+  filters: document.getElementById("category-filters"),
+  cartItems: document.getElementById("cart-items"),
+  subtotal: document.getElementById("cart-subtotal-price"),
+  total: document.getElementById("cart-total-price"),
+  form: document.getElementById("order-form"),
+  addressWrap: document.getElementById("address-wrapper"),
+  address: document.getElementById("customer-address")
+};
 
-function normalizeWhatsAppNumber(number) {
-  const digits = number.replace(/\D/g, "");
+const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
+const waNumber = (n) => n.replace(/\D/g, "").replace(/^0/, "62");
+const saveCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 
-  if (digits.startsWith("0")) {
-    return `62${digits.slice(1)}`;
-  }
-
-  if (digits.startsWith("62")) {
-    return digits;
-  }
-
-  return digits;
-}
-
-function saveCart() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+function renderFilters() {
+  el.filters.innerHTML = categories
+    .map((c) => `<button class="filter-btn ${c === activeCategory ? "is-active" : ""}" data-category="${c}">${c}</button>`)
+    .join("");
 }
 
 function renderProducts() {
-  productListEl.innerHTML = "";
-
-  products.forEach((product) => {
-    const productCard = document.createElement("article");
-    productCard.className = "product-item";
-    productCard.innerHTML = `
-      <div class="product-main">
-        <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy" />
-        <div>
-          <strong>${product.name}</strong>
-          <span class="product-meta">${product.category} • ${formatRupiah(product.price)}</span>
+  const list = activeCategory === "Semua" ? products : products.filter((p) => p.category === activeCategory);
+  el.productList.innerHTML = list
+    .map((p) => `
+      <article class="product-item">
+        <div class="product-main">
+          <div>
+            <strong>${p.name}</strong>
+            <span class="product-meta">${p.category} • ${p.variant}</span>
+            <p class="product-desc">${p.description}</p>
+            <p class="product-price">${rupiah(p.price)}</p>
+          </div>
         </div>
-      </div>
-      <button class="btn btn-outline" data-add-id="${product.id}">Tambah ke Keranjang</button>
-    `;
-
-    productListEl.appendChild(productCard);
-  });
+        <button class="btn btn-outline" data-add-id="${p.id}">Tambah ke Keranjang</button>
+      </article>
+    `)
+    .join("");
 }
 
 function addToCart(productId) {
-  const existingItem = cart.find((item) => item.id === productId);
-
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    const product = products.find((item) => item.id === productId);
-    cart.push({ ...product, quantity: 1 });
+  const item = cart.find((i) => i.id === productId);
+  if (item) item.quantity += 1;
+  else {
+    const p = products.find((x) => x.id === productId);
+    cart.push({ ...p, quantity: 1 });
   }
-
   saveCart();
   renderCart();
 }
 
-function updateQuantity(productId, delta) {
-  const item = cart.find((cartItem) => cartItem.id === productId);
+function updateQty(id, delta) {
+  const item = cart.find((i) => i.id === id);
   if (!item) return;
-
   item.quantity += delta;
-
-  if (item.quantity <= 0) {
-    cart = cart.filter((cartItem) => cartItem.id !== productId);
-  }
-
+  if (item.quantity <= 0) cart = cart.filter((i) => i.id !== id);
   saveCart();
   renderCart();
 }
 
-function removeFromCart(productId) {
-  cart = cart.filter((item) => item.id !== productId);
+function removeItem(id) {
+  cart = cart.filter((i) => i.id !== id);
   saveCart();
   renderCart();
 }
 
-function calculateTotal() {
-  return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-}
+function totalPrice() { return cart.reduce((sum, i) => sum + i.price * i.quantity, 0); }
 
 function renderCart() {
-  cartItemsEl.innerHTML = "";
-
-  if (cart.length === 0) {
-    cartItemsEl.innerHTML = '<p class="empty-state">Keranjang masih kosong.</p>';
-    totalPriceEl.textContent = formatRupiah(0);
+  if (!cart.length) {
+    el.cartItems.innerHTML = '<p class="empty-state">Keranjang masih kosong.</p>';
+    el.subtotal.textContent = rupiah(0);
+    el.total.textContent = rupiah(0);
     return;
   }
-
-  cart.forEach((item) => {
-    const subtotal = item.price * item.quantity;
-    const row = document.createElement("div");
-    row.className = "cart-row";
-    row.innerHTML = `
-      <h4>${item.name}</h4>
-      <small>${formatRupiah(item.price)} x ${item.quantity} = ${formatRupiah(subtotal)}</small>
+  el.cartItems.innerHTML = cart.map((i) => `
+    <div class="cart-row">
+      <h4>${i.name}</h4>
+      <small>${rupiah(i.price)} x ${i.quantity} = ${rupiah(i.price * i.quantity)}</small>
       <div class="qty-controls">
-        <button class="qty-btn" data-qty-id="${item.id}" data-delta="-1">-</button>
-        <span>${item.quantity}</span>
-        <button class="qty-btn" data-qty-id="${item.id}" data-delta="1">+</button>
-        <button class="remove-btn" data-remove-id="${item.id}">Hapus</button>
+        <button class="qty-btn" data-qty-id="${i.id}" data-delta="-1">-</button>
+        <span>${i.quantity}</span>
+        <button class="qty-btn" data-qty-id="${i.id}" data-delta="1">+</button>
+        <button class="remove-btn" data-remove-id="${i.id}">Hapus</button>
       </div>
-    `;
-    cartItemsEl.appendChild(row);
-  });
-
-  totalPriceEl.textContent = formatRupiah(calculateTotal());
+    </div>
+  `).join("");
+  const total = totalPrice();
+  el.subtotal.textContent = rupiah(total);
+  el.total.textContent = rupiah(total);
 }
 
-function toggleAddressField() {
-  const selectedMethod = document.querySelector('input[name="order-method"]:checked').value;
-  const isDelivery = selectedMethod === "Delivery";
-
-  addressWrapper.classList.toggle("hidden", !isDelivery);
-  addressInput.required = isDelivery;
+function toggleAddress() {
+  const isDelivery = document.querySelector('input[name="order-method"]:checked').value === "Delivery";
+  el.addressWrap.classList.toggle("hidden", !isDelivery);
+  el.address.required = isDelivery;
 }
 
-function generateWhatsAppMessage(formData) {
-  const itemsText = cart
-    .map(
-      (item, index) =>
-        `${index + 1}. ${item.name} x${item.quantity} = ${formatRupiah(item.price * item.quantity)}`
-    )
-    .join("\n");
-
-  const total = formatRupiah(calculateTotal());
-  const addressText = formData.method === "Delivery" ? formData.address : "-";
-
-  return `Halo Slaku! Saya mau order:\n\n${itemsText}\n\nTotal: ${total}\n\nData Pemesan:\nNama: ${formData.name}\nMetode: ${formData.method}\nJam ${formData.method}: ${formData.orderTime}\nAlamat: ${addressText}`;
+function checkoutMessage(data) {
+  const detail = cart.map((i, idx) => `${idx + 1}. ${i.name} x${i.quantity} = ${rupiah(i.price * i.quantity)}`).join("\n");
+  const total = rupiah(totalPrice());
+  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nAlamat: ${data.address || "-"}\nCatatan: ${data.notes || "-"}\nJam ${data.method}: ${data.time}\n\nDetail Pesanan:\n${detail}\n\nSubtotal: ${total}\nTotal: ${total}\n\nTerima kasih.`;
 }
 
-productListEl.addEventListener("click", (event) => {
-  const addButton = event.target.closest("[data-add-id]");
-  if (!addButton) return;
-
-  addToCart(Number(addButton.dataset.addId));
+el.filters.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-category]");
+  if (!btn) return;
+  activeCategory = btn.dataset.category;
+  renderFilters();
+  renderProducts();
 });
 
-cartItemsEl.addEventListener("click", (event) => {
-  const qtyButton = event.target.closest("[data-qty-id]");
-  const removeButton = event.target.closest("[data-remove-id]");
-
-  if (qtyButton) {
-    updateQuantity(Number(qtyButton.dataset.qtyId), Number(qtyButton.dataset.delta));
-  }
-
-  if (removeButton) {
-    removeFromCart(Number(removeButton.dataset.removeId));
-  }
+el.productList.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-add-id]");
+  if (btn) addToCart(Number(btn.dataset.addId));
 });
 
-orderForm.addEventListener("change", (event) => {
-  if (event.target.name === "order-method") {
-    toggleAddressField();
-  }
+el.cartItems.addEventListener("click", (e) => {
+  const qty = e.target.closest("[data-qty-id]");
+  const remove = e.target.closest("[data-remove-id]");
+  if (qty) updateQty(Number(qty.dataset.qtyId), Number(qty.dataset.delta));
+  if (remove) removeItem(Number(remove.dataset.removeId));
 });
 
-orderForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+el.form.addEventListener("change", (e) => { if (e.target.name === "order-method") toggleAddress(); });
 
-  if (cart.length === 0) {
-    alert("Keranjang masih kosong. Tambahkan produk terlebih dahulu.");
-    return;
-  }
-
+el.form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (!cart.length) return alert("Keranjang masih kosong.");
   const formData = {
     name: document.getElementById("customer-name").value.trim(),
+    phone: document.getElementById("customer-phone").value.trim(),
     method: document.querySelector('input[name="order-method"]:checked').value,
-    orderTime: document.getElementById("order-time").value,
-    address: addressInput.value.trim()
+    address: el.address.value.trim(),
+    notes: document.getElementById("order-notes").value.trim(),
+    time: document.getElementById("order-time").value
   };
-
-  const message = generateWhatsAppMessage(formData);
-  const targetNumber = normalizeWhatsAppNumber(ADMIN_WHATSAPP_NUMBER);
-  const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, "_blank");
+  const url = `https://wa.me/${waNumber(ADMIN_WHATSAPP_NUMBER)}?text=${encodeURIComponent(checkoutMessage(formData))}`;
+  window.open(url, "_blank");
 });
 
+renderFilters();
 renderProducts();
 renderCart();
-toggleAddressField();
+toggleAddress();
