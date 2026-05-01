@@ -3,12 +3,48 @@ const ADMIN_WHATSAPP_NUMBER = "6281210907159"; // 081210907159
 
 // ===== EDIT DI SINI: Daftar produk katalog =====
 const products = [
-  { id: 1, name: "Kopi Susu Slaku 250ml", price: 15000, category: "Coffee" },
-  { id: 2, name: "Matcha Latte 250ml", price: 18000, category: "Matcha" },
-  { id: 3, name: "Chocolate Creamy 250ml", price: 17000, category: "Chocolate" },
-  { id: 4, name: "Brown Butter Dark Chocolate Cookies", price: 12000, category: "Cookies" },
-  { id: 5, name: "Hokkaido Cheese Tart", price: 15000, category: "Dessert" },
-  { id: 6, name: "Tiramisu Cup", price: 20000, category: "Dessert" }
+  {
+    id: 1,
+    name: "Kopi Susu Slaku 250ml",
+    price: 15000,
+    category: "Coffee",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    id: 2,
+    name: "Matcha Latte 250ml",
+    price: 18000,
+    category: "Matcha",
+    image: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    id: 3,
+    name: "Chocolate Creamy 250ml",
+    price: 17000,
+    category: "Chocolate",
+    image: "https://images.unsplash.com/photo-1517578239113-b03992dcdd25?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    id: 4,
+    name: "Brown Butter Dark Chocolate Cookies",
+    price: 12000,
+    category: "Cookies",
+    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    id: 5,
+    name: "Hokkaido Cheese Tart",
+    price: 15000,
+    category: "Dessert",
+    image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    id: 6,
+    name: "Tiramisu Cup",
+    price: 20000,
+    category: "Dessert",
+    image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80"
+  }
 ];
 
 const STORAGE_KEY = "slaku_cart";
@@ -54,6 +90,7 @@ function renderProducts() {
     const productCard = document.createElement("article");
     productCard.className = "product-item";
     productCard.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy" />
       <strong>${product.name}</strong>
       <span class="product-meta">${product.category} • ${formatRupiah(product.price)}</span>
       <button class="btn btn-outline" data-add-id="${product.id}">Tambah ke Keranjang</button>
@@ -148,9 +185,8 @@ function generateWhatsAppMessage(formData) {
 
   const total = formatRupiah(calculateTotal());
   const addressText = formData.method === "Delivery" ? formData.address : "-";
-  const notesText = formData.notes?.trim() ? formData.notes : "-";
 
-  return `Halo Slaku! Saya mau order:\n\n${itemsText}\n\nTotal: ${total}\n\nData Pemesan:\nNama: ${formData.name}\nNo. WA: ${formData.phone}\nMetode: ${formData.method}\nAlamat: ${addressText}\nCatatan: ${notesText}`;
+  return `Halo Slaku! Saya mau order:\n\n${itemsText}\n\nTotal: ${total}\n\nData Pemesan:\nNama: ${formData.name}\nMetode: ${formData.method}\nJam ${formData.method}: ${formData.orderTime}\nAlamat: ${addressText}`;
 }
 
 productListEl.addEventListener("click", (event) => {
@@ -189,10 +225,9 @@ orderForm.addEventListener("submit", (event) => {
 
   const formData = {
     name: document.getElementById("customer-name").value.trim(),
-    phone: document.getElementById("customer-phone").value.trim(),
     method: document.querySelector('input[name="order-method"]:checked').value,
-    address: addressInput.value.trim(),
-    notes: document.getElementById("order-notes").value.trim()
+    orderTime: document.getElementById("order-time").value,
+    address: addressInput.value.trim()
   };
 
   const message = generateWhatsAppMessage(formData);
