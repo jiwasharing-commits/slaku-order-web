@@ -1,4 +1,4 @@
-const ADMIN_WHATSAPP_NUMBER = "6281210907159"; // 081210907159
+const ADMIN_WHATSAPP_NUMBER = "6287865706644";
 const STORAGE_KEY = "slaku_cart";
 
 // Edit data menu Slaku di sini.
@@ -9,8 +9,8 @@ const products = [
   { id: 4, name: "Cheese Tart D18 Medium Original", category: "Cheese Tart", variant: "D18 Medium", price: 140000, image: "https://drive.google.com/thumbnail?id=1LUS--Zp6GiJRuppY_dS0pRAHPku1EvFL&sz=w600", description: "Ukuran medium dengan rasa original creamy cheese, cocok untuk hadiah atau makan bersama." },
   { id: 5, name: "Cheese Tart D10 Small Original", category: "Cheese Tart", variant: "D10 Small", price: 35000, image: "https://drive.google.com/thumbnail?id=1TAD8MxeJGOeNDWpLk3TebdHfofBhOhB_&sz=w600", description: "Ukuran kecil, cocok untuk porsi personal atau sharing kecil." },
   { id: 6, name: "Cheese Tart Slice Original", category: "Cheese Tart", variant: "Slice", price: 27000, image: "https://drive.google.com/thumbnail?id=1bZln_TTUEIzgsbHIH0cP-pBOmR3tOAHH&sz=w600", description: "Potongan cheese tart praktis untuk sekali makan." },
-  { id: 7, name: "Matcha 1 Liter", category: "Matcha", variant: "1 Liter", price: 95000, image: "https://drive.google.com/thumbnail?id=1BFKgJdoJsICUtz6EQxa4QKZtjBjJ4YIo&sz=w600", description: "Matcha creamy ukuran besar, cocok untuk sharing atau stok di rumah." },
-  { id: 8, name: "Matcha 200 ml", category: "Matcha", variant: "200 ml", price: 20000, image: "https://drive.google.com/thumbnail?id=1A-RGtxdxiCPVfVIM5Oa7R7Lz6Ab_Yolu&sz=w600", description: "Matcha creamy ukuran personal, praktis untuk sekali minum." },
+  { id: 7, name: "Matcha 1 Liter", category: "Matcha", variant: "1 Liter", price: 95000, badge: "Best Seller", image: "https://drive.google.com/thumbnail?id=1BFKgJdoJsICUtz6EQxa4QKZtjBjJ4YIo&sz=w600", description: "Matcha creamy ukuran besar, cocok untuk sharing atau stok di rumah." },
+  { id: 8, name: "Matcha 200 ml", category: "Matcha", variant: "200 ml", price: 20000, badge: "Best Seller", image: "https://drive.google.com/thumbnail?id=1A-RGtxdxiCPVfVIM5Oa7R7Lz6Ab_Yolu&sz=w600", description: "Matcha creamy ukuran personal, praktis untuk sekali minum." },
   { id: 9, name: "Coklat 1 Liter", category: "Coklat", variant: "1 Liter", price: 80000, image: "https://drive.google.com/thumbnail?id=1nDnxfn1fSmpRgVxfT4seBecjjzjdOyBk&sz=w600", description: "Minuman coklat creamy ukuran besar dengan rasa rich dan lembut." },
   { id: 10, name: "Coklat 200 ml", category: "Coklat", variant: "200 ml", price: 17000, image: "https://drive.google.com/thumbnail?id=1TK7HmGGcBhwO3IXgYfm2O2n7O1nKuyfg&sz=w600", description: "Minuman coklat creamy ukuran personal." },
   { id: 11, name: "Kopi 1 Liter", category: "Kopi", variant: "1 Liter", price: 80000, image: "https://drive.google.com/thumbnail?id=1tEUhC9dIS5o76TsvWHMM2iDVjqeo_qrF&sz=w600", description: "Kopi susu creamy ukuran besar dengan rasa smooth dan seimbang." },
@@ -28,7 +28,6 @@ const el = {
   productList: document.getElementById("product-list"),
   filters: document.getElementById("category-filters"),
   cartItems: document.getElementById("cart-items"),
-  subtotal: document.getElementById("cart-subtotal-price"),
   total: document.getElementById("cart-total-price"),
   form: document.getElementById("order-form")
 };
@@ -97,7 +96,6 @@ function totalPrice() { return cart.reduce((sum, i) => sum + i.price * i.quantit
 function renderCart() {
   if (!cart.length) {
     el.cartItems.innerHTML = '<p class="empty-state">Keranjang masih kosong.</p>';
-    el.subtotal.textContent = rupiah(0);
     el.total.textContent = rupiah(0);
     return;
   }
@@ -114,7 +112,6 @@ function renderCart() {
     </div>
   `).join("");
   const total = totalPrice();
-  el.subtotal.textContent = rupiah(total);
   el.total.textContent = rupiah(total);
 }
 
