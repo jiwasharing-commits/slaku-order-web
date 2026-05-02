@@ -12,7 +12,10 @@ body { margin:0; font-family: Segoe UI,Tahoma,sans-serif; color:var(--text-dark)
   position: relative;
   min-height: 420px;
   background-image:
-    linear-gradient(rgba(74, 46, 42, 0.72), rgba(74, 46, 42, 0.82)),
+    linear-gradient(
+      rgba(74, 46, 42, 0.38),
+      rgba(74, 46, 42, 0.52)
+    ),
     url("https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=1600&q=80");
   background-size: cover;
   background-position: center;
@@ -22,6 +25,11 @@ body { margin:0; font-family: Segoe UI,Tahoma,sans-serif; color:var(--text-dark)
 }
 .brand { margin:0; text-transform:uppercase; letter-spacing:.12em; opacity:.9; }
 .hero h1 { margin:.5rem 0; font-size:2rem; }
+.hero h1,
+.hero p,
+.hero .brand {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
 .subtitle { max-width:42ch; }
 .layout { display:grid; gap:1rem; padding:1.25rem 0 2rem; }
 .card { background:var(--white); border-radius:14px; padding:1rem; box-shadow:0 8px 24px rgba(42,37,34,.08); }
