@@ -3,9 +3,9 @@ const STORAGE_KEY = "slaku_cart";
 
 // Edit data menu Slaku di sini.
 const products = [
-  { id: 1, name: "Cheese Tart D20 Large Original", category: "Cheese Tart", variant: "D20 Large", price: 170000, image: "https://drive.google.com/thumbnail?id=1CI2AMyqI5p38S2rFQuOUVmgoR81v-pUF&sz=w600", description: "Cheese tart ukuran besar dengan rasa original creamy cheese, cocok untuk sharing atau acara keluarga." },
-  { id: 2, name: "Cheese Tart D20 Large Matcha", category: "Cheese Tart", variant: "D20 Large", price: 195000, image: "https://drive.google.com/thumbnail?id=1JxU-8UTKpTWDjRvk9enV9ZZH9tAH54oL&sz=w600", description: "Cheese tart ukuran besar dengan varian matcha creamy, cocok untuk pecinta matcha." },
-  { id: 3, name: "Cheese Tart D20 Large Chocolate", category: "Cheese Tart", variant: "D20 Large", price: 195000, image: "https://drive.google.com/thumbnail?id=1sT7hbyNJgBVMG0RcXNbXnV6eG2mmsY9D&sz=w600", description: "Cheese tart ukuran besar dengan varian chocolate creamy, cocok untuk pecinta coklat." },
+  { id: 1, name: "Cheese Tart Original D20", category: "Cheese Tart", variant: "D20 Large", price: 170000, badge: "🔥 Best Seller", image: "https://drive.google.com/thumbnail?id=1CI2AMyqI5p38S2rFQuOUVmgoR81v-pUF&sz=w600", description: "Cheese tart ukuran besar dengan rasa original creamy cheese, cocok untuk sharing atau acara keluarga." },
+  { id: 2, name: "Cheese Tart Matcha D20", category: "Cheese Tart", variant: "D20 Large", price: 195000, badge: "✨ Menu Baru", image: "https://drive.google.com/thumbnail?id=1JxU-8UTKpTWDjRvk9enV9ZZH9tAH54oL&sz=w600", description: "Cheese tart ukuran besar dengan varian matcha creamy, cocok untuk pecinta matcha." },
+  { id: 3, name: "Cheese Tart Coklat D20", category: "Cheese Tart", variant: "D20 Large", price: 195000, badge: "✨ Menu Baru", image: "https://drive.google.com/thumbnail?id=1sT7hbyNJgBVMG0RcXNbXnV6eG2mmsY9D&sz=w600", description: "Cheese tart ukuran besar dengan varian chocolate creamy, cocok untuk pecinta coklat." },
   { id: 4, name: "Cheese Tart D18 Medium Original", category: "Cheese Tart", variant: "D18 Medium", price: 140000, image: "https://drive.google.com/thumbnail?id=1LUS--Zp6GiJRuppY_dS0pRAHPku1EvFL&sz=w600", description: "Ukuran medium dengan rasa original creamy cheese, cocok untuk hadiah atau makan bersama." },
   { id: 5, name: "Cheese Tart D10 Small Original", category: "Cheese Tart", variant: "D10 Small", price: 35000, image: "https://drive.google.com/thumbnail?id=1TAD8MxeJGOeNDWpLk3TebdHfofBhOhB_&sz=w600", description: "Ukuran kecil, cocok untuk porsi personal atau sharing kecil." },
   { id: 6, name: "Cheese Tart Slice Original", category: "Cheese Tart", variant: "Slice", price: 27000, image: "https://drive.google.com/thumbnail?id=1bZln_TTUEIzgsbHIH0cP-pBOmR3tOAHH&sz=w600", description: "Potongan cheese tart praktis untuk sekali makan." },
@@ -48,6 +48,7 @@ function renderProducts() {
   el.productList.innerHTML = list
     .map((p) => `
       <article class="product-item">
+        ${p.badge ? `<span class="badge ${p.badge.includes("Best Seller") ? "badge-best" : "badge-new"}">${p.badge}</span>` : ""}
         <div class="product-main">
           <img src="${p.image}" alt="${p.name}" class="product-thumb" loading="lazy" />
           <div>
