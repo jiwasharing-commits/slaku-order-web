@@ -51,8 +51,8 @@ function renderProducts() {
         ${p.badge ? `<span class="badge ${p.badge.includes("Best Seller") ? "badge-best" : "badge-new"}">${p.badge}</span>` : ""}
         <div class="product-main">
           <img src="${p.image}" alt="${p.name}" class="product-thumb" loading="lazy" />
-          <div>
-            <strong>${p.name}</strong>
+          <div class="product-info">
+            <strong class="product-title">${p.name}</strong>
             <span class="product-meta">${p.category} • ${p.variant}</span>
             <p class="product-desc">${p.description}</p>
             <p class="product-price">${rupiah(p.price)}</p>
