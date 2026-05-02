@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slaku Order</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <div class="container">
+        <p class="brand">Slaku</p>
+        <h1>Pesan Slaku Sekarang</h1>
+        <p class="subtitle">Cheese tart dan minuman premium affordable untuk menemani harimu.</p>
+        <a href="#menu" class="btn btn-primary">Lihat Menu</a>
+      </div>
+    </header>
+
+    <main class="container layout">
+      <section class="card" id="menu">
+        <h2>Menu Slaku</h2>
+        <p class="section-note">Pilih kategori lalu tambahkan produk ke keranjang.</p>
+
+        <div class="filters" id="category-filters"></div>
+        <div id="product-list" class="product-list"></div>
+
+        <div class="cart-inline" id="cart-section">
+          <h3>Keranjang</h3>
+          <div id="cart-items" class="cart-items"></div>
+          <div class="cart-total"><span>Subtotal</span><strong id="cart-subtotal-price">Rp0</strong></div>
+          <div class="cart-total"><span>Total</span><strong id="cart-total-price">Rp0</strong></div>
+        </div>
+      </section>
+
+      <section class="card" id="customer-form-section">
+        <h2>Detail Pemesan</h2>
+        <form id="order-form">
+          <label>Nama<input type="text" id="customer-name" required /></label>
+          <label>No HP<input type="tel" id="customer-phone" required /></label>
+
+          <fieldset>
+            <legend>Metode Pesanan</legend>
+            <label class="radio"><input type="radio" name="order-method" value="Pickup Mandiri / Pickup Kurir (Gojek/Maxim)" checked /> Pickup Mandiri / Pickup Kurir (Gojek/Maxim)</label>
+          </fieldset>
+
+          <label>Jam Pickup<input type="time" id="order-time" required /></label>
+
+          <div class="pickup-info">
+            <p><strong>Alamat Pickup Slaku:</strong></p>
+            <p>Jalan Saribanon Blok H/5 Komplek Ciceri Indah Serang Banten (Masuk Dari Dokterlinda/Indomaret, gang ke dua belok kanan).</p>
+            <p><a href="https://bit.ly/425QLnw" target="_blank" rel="noopener noreferrer">Lihat Google Maps Pickup</a></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Checkout via WhatsApp</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
