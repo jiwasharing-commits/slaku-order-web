@@ -118,7 +118,7 @@ function renderCart() {
 function checkoutMessage(data) {
   const detail = cart.map((i, idx) => `${idx + 1}. ${i.name} x${i.quantity} = ${rupiah(i.price * i.quantity)}`).join("\n");
   const total = rupiah(totalPrice());
-  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nAlamat Pickup: ${PICKUP_ADDRESS}\nGoogle Maps: ${PICKUP_MAPS}\nJam Pickup: ${data.time}\n\nDetail Pesanan:\n${detail}\n\nSubtotal: ${total}\nTotal: ${total}\n\nTerima kasih.`;
+  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nJam Pickup: ${data.time}\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nTerima kasih.`;
 }
 
 el.filters.addEventListener("click", (e) => {
