@@ -20,6 +20,7 @@ body { margin:0; font-family: Segoe UI,Tahoma,sans-serif; color:var(--text-dark)
 .filter-btn.is-active { background:var(--matcha-soft); border-color:var(--matcha-soft); }
 .product-list { display:grid; gap:.7rem; }
 .product-item { position:relative; border:1px solid #f0e3d7; background:#fffdfa; border-radius:14px; padding:.9rem; display:grid; gap:.75rem; box-shadow:0 8px 20px rgba(74,46,42,.08); }
+.product-header { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
 .product-main { display:grid; grid-template-columns:98px 1fr; gap:.8rem; align-items:start; }
 .product-thumb { width:98px; height:98px; border-radius:12px; object-fit:cover; }
 .product-meta { display:block; color:#6e6259; font-size:.9rem; margin-top:.2rem; }
@@ -55,20 +56,38 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .badge-best { background:#D9A441; color:#fff; }
 .badge-new { background:#A8C686; color:#2B2B2B; }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .product-item { gap: .6rem; }
-  .badge {
-    position: static;
-    align-self: flex-start;
-    margin-bottom: 4px;
+  .product-card {
+    position: relative;
   }
-  .product-info {
+
+  .product-badge,
+  .badge {
+    position: static !important;
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    margin: 6px 0 8px 0;
+    align-self: flex-start;
+    transform: none !important;
+  }
+
+  .product-header {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 4px;
   }
-  .product-title {
-    line-height: 1.25;
-    margin-top: 0;
+
+  .product-title,
+  .product-name {
+    width: 100%;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    line-height: 1.2;
   }
 }
