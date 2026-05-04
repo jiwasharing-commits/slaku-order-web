@@ -221,7 +221,9 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .testimonial-section {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  background: transparent;
+  background: rgba(255, 246, 238, 0.88);
+  border-radius: 16px;
+  padding: 0.85rem;
 }
 
 .testimonial-intro {
