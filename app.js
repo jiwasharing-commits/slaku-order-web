@@ -164,3 +164,31 @@ el.form.addEventListener("submit", (e) => {
 renderFilters();
 renderProducts();
 renderCart();
+
+
+const testimonialTrack = document.getElementById("testimonial-track");
+const testimonialModal = document.getElementById("testimonial-modal");
+const testimonialModalImage = document.getElementById("testimonial-modal-image");
+const testimonialClose = document.getElementById("testimonial-close");
+
+if (testimonialTrack && testimonialModal && testimonialModalImage && testimonialClose) {
+  testimonialTrack.addEventListener("click", (event) => {
+    const card = event.target.closest(".testimonial-card");
+    if (!card) return;
+    testimonialModalImage.src = card.dataset.full;
+    testimonialModal.classList.add("show");
+    testimonialModal.setAttribute("aria-hidden", "false");
+  });
+
+  testimonialClose.addEventListener("click", () => {
+    testimonialModal.classList.remove("show");
+    testimonialModal.setAttribute("aria-hidden", "true");
+  });
+
+  testimonialModal.addEventListener("click", (event) => {
+    if (event.target === testimonialModal) {
+      testimonialModal.classList.remove("show");
+      testimonialModal.setAttribute("aria-hidden", "true");
+    }
+  });
+}
