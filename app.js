@@ -37,6 +37,25 @@ const waNumber = (n) => n.replace(/\D/g, "").replace(/^0/, "62");
 const saveCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 const cartQty = (id) => (cart.find((i) => i.id === id)?.quantity || 0);
 
+
+function tapFeedback(element) {
+  if (!element) return;
+  element.classList.remove("interactive-pop");
+  void element.offsetWidth;
+  element.classList.add("interactive-pop");
+}
+
+function showAddedFeedback(button) {
+  if (!button) return;
+  const old = button.parentElement.querySelector('.added-feedback');
+  if (old) old.remove();
+  const note = document.createElement('div');
+  note.className = 'added-feedback';
+  note.textContent = 'Ditambahkan ✔';
+  button.parentElement.appendChild(note);
+  setTimeout(() => note.remove(), 900);
+}
+
 function renderFilters() {
   el.filters.innerHTML = categories
     .map((c) => `<button class="filter-btn ${c === activeCategory ? "is-active" : ""}" data-category="${c}">${c}</button>`)
@@ -137,7 +156,11 @@ el.productList.addEventListener("click", (e) => {
   const addBtn = e.target.closest("[data-add-id]");
   const qtyBtn = e.target.closest("[data-card-qty-id]");
 
-  if (addBtn) addToCart(Number(addBtn.dataset.addId));
+  if (addBtn) {
+    tapFeedback(addBtn);
+    showAddedFeedback(addBtn);
+    addToCart(Number(addBtn.dataset.addId));
+  }
   if (qtyBtn) updateQty(Number(qtyBtn.dataset.cardQtyId), Number(qtyBtn.dataset.delta));
 });
 
@@ -192,3 +215,8 @@ if (testimonialTrack && testimonialModal && testimonialModalImage && testimonial
     }
   });
 }
+
+
+document.querySelectorAll('.interactive-btn, .wa-float').forEach((btn) => {
+  btn.addEventListener('click', () => tapFeedback(btn));
+});
