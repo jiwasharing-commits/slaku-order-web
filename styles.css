@@ -188,3 +188,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
     width: 100%;
   }
 }
+
+.card-stepper { display:flex; align-items:center; justify-content:space-between; gap:.6rem; border:1px solid #d8c5b2; border-radius:999px; padding:.25rem; max-width:170px; }
+.step-btn { width:36px; height:36px; border:0; border-radius:999px; background:#4A2E2A; color:#fff; font-size:1.1rem; cursor:pointer; }
+.step-value { min-width:28px; text-align:center; font-weight:700; color:#2B2B2B; }

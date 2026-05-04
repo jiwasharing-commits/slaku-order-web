@@ -35,6 +35,7 @@ const el = {
 const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
 const waNumber = (n) => n.replace(/\D/g, "").replace(/^0/, "62");
 const saveCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+const cartQty = (id) => (cart.find((i) => i.id === id)?.quantity || 0);
 
 function renderFilters() {
   el.filters.innerHTML = categories
@@ -59,7 +60,7 @@ function renderProducts() {
             <p class="product-price">${rupiah(p.price)}</p>
           </div>
         </div>
-        <button class="btn btn-outline" data-add-id="${p.id}">Tambah ke Keranjang</button>
+        ${cartQty(p.id) === 0 ? `<button class="btn btn-outline" data-add-id="${p.id}">Tambah Keranjang</button>` : `<div class="card-stepper"><button class="step-btn" data-card-qty-id="${p.id}" data-delta="-1">−</button><span class="step-value">${cartQty(p.id)}</span><button class="step-btn" data-card-qty-id="${p.id}" data-delta="1">+</button></div>`}
       </article>
     `)
     .join("");
@@ -74,6 +75,7 @@ function addToCart(productId) {
   }
   saveCart();
   renderCart();
+  renderProducts();
 }
 
 function updateQty(id, delta) {
@@ -83,12 +85,14 @@ function updateQty(id, delta) {
   if (item.quantity <= 0) cart = cart.filter((i) => i.id !== id);
   saveCart();
   renderCart();
+  renderProducts();
 }
 
 function removeItem(id) {
   cart = cart.filter((i) => i.id !== id);
   saveCart();
   renderCart();
+  renderProducts();
 }
 
 function totalPrice() { return cart.reduce((sum, i) => sum + i.price * i.quantity, 0); }
@@ -130,8 +134,11 @@ el.filters.addEventListener("click", (e) => {
 });
 
 el.productList.addEventListener("click", (e) => {
-  const btn = e.target.closest("[data-add-id]");
-  if (btn) addToCart(Number(btn.dataset.addId));
+  const addBtn = e.target.closest("[data-add-id]");
+  const qtyBtn = e.target.closest("[data-card-qty-id]");
+
+  if (addBtn) addToCart(Number(addBtn.dataset.addId));
+  if (qtyBtn) updateQty(Number(qtyBtn.dataset.cardQtyId), Number(qtyBtn.dataset.delta));
 });
 
 el.cartItems.addEventListener("click", (e) => {
