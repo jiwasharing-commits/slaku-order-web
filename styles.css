@@ -285,3 +285,6 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   .wa-float { font-size:.76rem; padding:.55rem .75rem; right:12px; bottom:12px; }
   .testi-badge { top:8px; left:8px; font-size:.64rem; }
 }
+
+.order-info-grid { display:grid; gap:.65rem; }
+@media (min-width: 768px) { .order-info-grid { grid-template-columns: 1fr 1fr; } }
