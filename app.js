@@ -53,7 +53,7 @@ function showAddedFeedback(button) {
   note.className = 'added-feedback';
   note.textContent = 'Ditambahkan ✔';
   button.parentElement.appendChild(note);
-  setTimeout(() => note.remove(), 900);
+  setTimeout(() => note.remove(), 1000);
 }
 
 function renderFilters() {
@@ -161,14 +161,23 @@ el.productList.addEventListener("click", (e) => {
     showAddedFeedback(addBtn);
     addToCart(Number(addBtn.dataset.addId));
   }
-  if (qtyBtn) updateQty(Number(qtyBtn.dataset.cardQtyId), Number(qtyBtn.dataset.delta));
+  if (qtyBtn) {
+    tapFeedback(qtyBtn);
+    updateQty(Number(qtyBtn.dataset.cardQtyId), Number(qtyBtn.dataset.delta));
+  }
 });
 
 el.cartItems.addEventListener("click", (e) => {
   const qty = e.target.closest("[data-qty-id]");
   const remove = e.target.closest("[data-remove-id]");
-  if (qty) updateQty(Number(qty.dataset.qtyId), Number(qty.dataset.delta));
-  if (remove) removeItem(Number(remove.dataset.removeId));
+  if (qty) {
+    tapFeedback(qty);
+    updateQty(Number(qty.dataset.qtyId), Number(qty.dataset.delta));
+  }
+  if (remove) {
+    tapFeedback(remove);
+    removeItem(Number(remove.dataset.removeId));
+  }
 });
 
 el.form.addEventListener("submit", (e) => {
