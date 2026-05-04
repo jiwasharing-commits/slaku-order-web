@@ -28,7 +28,7 @@ body {
       rgba(74, 46, 42, 0.38),
       rgba(74, 46, 42, 0.48)
     ),
-    url("https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=1600&q=80");
+    url("assets/baner-slaku.jpg");
   background-size: cover;
   background-position: center;
   color: white;
