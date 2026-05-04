@@ -35,7 +35,7 @@ body {
   display: flex;
   align-items: center;
 }
-.brand { margin:0; text-transform:uppercase; letter-spacing:.12em; opacity:.9; }
+.brand-logo { height: 40px; width: auto; display: block; margin-bottom: .25rem; }
 .hero h1 { margin:.5rem 0; font-size:2rem; }
 .hero h1,
 .hero p,
@@ -81,6 +81,10 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   .hero {
     min-height: 360px;
     background-position: center;
+  }
+
+  .brand-logo {
+    height: 34px;
   }
 
   body {
