@@ -192,3 +192,9 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .card-stepper { display:flex; align-items:center; justify-content:space-between; gap:.6rem; border:1px solid #d8c5b2; border-radius:999px; padding:.25rem; max-width:170px; }
 .step-btn { width:36px; height:36px; border:0; border-radius:999px; background:#4A2E2A; color:#fff; font-size:1.1rem; cursor:pointer; }
 .step-value { min-width:28px; text-align:center; font-weight:700; color:#2B2B2B; }
+
+.method-note { margin:.45rem 0 0; font-size:.88rem; color:#5a4c43; line-height:1.45; }
+.method-note a { color:#4A2E2A; font-weight:600; }
+.terms-box { background:#f9efe4; border:1px solid #ead8c7; border-radius:10px; padding:.75rem; font-size:.9rem; }
+.terms-box p { margin:.1rem 0 .35rem; }
+.terms-box ul { margin:.2rem 0 0; padding-left:1rem; display:grid; gap:.3rem; }
