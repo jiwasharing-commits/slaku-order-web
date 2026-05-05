@@ -42,6 +42,7 @@ const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", cu
 const waNumber = (n) => n.replace(/\D/g, "").replace(/^0/, "62");
 const saveCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 const cartQty = (id) => (cart.find((i) => i.id === id)?.quantity || 0);
+const debugCart = (action) => console.log(`[cart-debug] ${action}`, { cart: [...cart] });
 function syncCartUI() {
   renderCart();
   renderProducts();
@@ -104,24 +105,28 @@ function addToCart(productId) {
     cart.push({ ...p, quantity: 1 });
   }
   saveCart();
+  debugCart("after add");
   syncCartUI();
 }
 
 function updateQty(id, delta) {
   const item = cart.find((i) => i.id === id);
   if (!item) {
+    debugCart("minus target missing");
     syncCartUI();
     return;
   }
   item.quantity += delta;
   if (item.quantity <= 0) cart = cart.filter((i) => i.id !== id);
   saveCart();
+  debugCart("after minus/plus");
   syncCartUI();
 }
 
 function removeItem(id) {
   cart = cart.filter((i) => i.id !== id);
   saveCart();
+  debugCart("after remove");
   syncCartUI();
 }
 
@@ -134,9 +139,11 @@ function updateFloatingCart() {
   const total = totalPrice();
 
   if (!items) {
+    el.miniCartSummary.textContent = "🛒 0 item • Total Rp0";
     el.miniCartBar.hidden = true;
     el.miniCartBar.classList.add("hidden");
     document.body.classList.remove("mini-cart-visible");
+    console.log("[cart-debug] total items", items, "mini cart hidden");
     return;
   }
 
@@ -147,6 +154,7 @@ function updateFloatingCart() {
   el.miniCartBar.classList.remove("mini-cart-pop");
   void el.miniCartBar.offsetWidth;
   el.miniCartBar.classList.add("mini-cart-pop");
+  console.log("[cart-debug] total items", items, "mini cart visible");
 }
 
 function clearCart() {
@@ -154,6 +162,7 @@ function clearCart() {
   if (!ok) return;
   cart = [];
   saveCart();
+  debugCart("after clear");
   syncCartUI();
 }
 
