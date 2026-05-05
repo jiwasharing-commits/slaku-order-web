@@ -207,12 +207,12 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   background: #946c45;
 }
 
+.ig-float,
 .wa-float {
   position: fixed;
   right: 16px;
   bottom: 16px;
   border-radius: 999px;
-  background: #25D366;
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -224,6 +224,21 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   text-decoration: none;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
   z-index: 1000;
+}
+
+.wa-float {
+  background: #25D366;
+  bottom: 16px;
+}
+
+.ig-float {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  bottom: 64px;
+}
+
+.ig-float:hover,
+.wa-float:hover {
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
@@ -314,7 +329,10 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 
 .testi-badge { position:absolute; top:10px; left:10px; z-index:2; display:inline-flex; background:#f1e4cc; color:#6b4a1e; border-radius:999px; padding:.2rem .5rem; font-size:.68rem; font-weight:700; box-shadow:0 4px 10px rgba(0,0,0,.12); }
 @media (max-width: 768px) {
-  .wa-float { font-size:.76rem; padding:.55rem .75rem; right:12px; bottom:12px; }
+  .ig-float,
+  .wa-float { font-size:.76rem; padding:.55rem .75rem; right:12px; }
+  .wa-float { bottom:12px; }
+  .ig-float { bottom:58px; }
   .testi-badge { top:8px; left:8px; font-size:.64rem; }
 }
 
