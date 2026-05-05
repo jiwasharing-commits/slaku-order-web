@@ -98,9 +98,6 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .empty-state { color:#6e6259; }
 .btn-full { width:100%; }
 
-.mini-cart-visible .wa-float { bottom: 96px; }
-.mini-cart-visible .ig-float { bottom: 144px; }
-
 @media (max-width: 768px) {
   .hero {
     min-height: 360px;
@@ -232,12 +229,12 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 
 .wa-float {
   background: #25D366;
-  bottom: 16px;
+  bottom: 100px;
 }
 
 .ig-float {
   background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-  bottom: 64px;
+  bottom: 148px;
 }
 
 .ig-float:hover,
@@ -335,8 +332,8 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 @media (max-width: 768px) {
   .ig-float,
   .wa-float { font-size:.76rem; padding:.55rem .75rem; right:12px; }
-  .wa-float { bottom:12px; }
-  .ig-float { bottom:58px; }
+  .wa-float { bottom:96px; }
+  .ig-float { bottom:144px; }
   .testi-badge { top:8px; left:8px; font-size:.64rem; }
 }
 
@@ -443,9 +440,6 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 }
 
 @media (max-width: 768px) {
-  .mini-cart-visible .wa-float { bottom: 104px; }
-  .mini-cart-visible .ig-float { bottom: 152px; }
-
   .mini-cart-bar {
     bottom: 10px;
     width: calc(100% - 16px);
