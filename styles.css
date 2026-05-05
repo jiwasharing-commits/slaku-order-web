@@ -365,3 +365,11 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 
 .clear-cart-btn { margin-top:.45rem; border:0; background:transparent; color:#7a5540; font-size:.82rem; text-decoration:underline; cursor:pointer; padding:0; }
 .clear-cart-btn:hover { color:#4A2E2A; }
+
+
+.order-timing-note {
+  margin: -0.1rem 0 0.65rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #65584f;
+}
