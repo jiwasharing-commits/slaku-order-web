@@ -45,7 +45,7 @@ const cartQty = (id) => (cart.find((i) => i.id === id)?.quantity || 0);
 function syncCartUI() {
   renderCart();
   renderProducts();
-  renderMiniCart();
+  updateFloatingCart();
 }
 
 
@@ -109,7 +109,10 @@ function addToCart(productId) {
 
 function updateQty(id, delta) {
   const item = cart.find((i) => i.id === id);
-  if (!item) return;
+  if (!item) {
+    syncCartUI();
+    return;
+  }
   item.quantity += delta;
   if (item.quantity <= 0) cart = cart.filter((i) => i.id !== id);
   saveCart();
@@ -125,7 +128,7 @@ function removeItem(id) {
 function totalPrice() { return cart.reduce((sum, i) => sum + i.price * i.quantity, 0); }
 function totalItems() { return cart.reduce((sum, i) => sum + i.quantity, 0); }
 
-function renderMiniCart() {
+function updateFloatingCart() {
   if (!el.miniCartBar || !el.miniCartSummary) return;
   const items = totalItems();
   const total = totalPrice();
