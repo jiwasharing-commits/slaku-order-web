@@ -42,6 +42,10 @@ const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", cu
 const waNumber = (n) => n.replace(/\D/g, "").replace(/^0/, "62");
 const saveCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 const cartQty = (id) => (cart.find((i) => i.id === id)?.quantity || 0);
+function syncCartUI() {
+  renderCart();
+  renderProducts();
+}
 
 
 function tapFeedback(element) {
@@ -99,8 +103,7 @@ function addToCart(productId) {
     cart.push({ ...p, quantity: 1 });
   }
   saveCart();
-  renderCart();
-  renderProducts();
+  syncCartUI();
 }
 
 function updateQty(id, delta) {
@@ -109,15 +112,13 @@ function updateQty(id, delta) {
   item.quantity += delta;
   if (item.quantity <= 0) cart = cart.filter((i) => i.id !== id);
   saveCart();
-  renderCart();
-  renderProducts();
+  syncCartUI();
 }
 
 function removeItem(id) {
   cart = cart.filter((i) => i.id !== id);
   saveCart();
-  renderCart();
-  renderProducts();
+  syncCartUI();
 }
 
 function totalPrice() { return cart.reduce((sum, i) => sum + i.price * i.quantity, 0); }
@@ -130,10 +131,12 @@ function renderMiniCart() {
 
   if (!items) {
     el.miniCartBar.hidden = true;
+    document.body.classList.remove("mini-cart-visible");
     return;
   }
 
   el.miniCartBar.hidden = false;
+  document.body.classList.add("mini-cart-visible");
   el.miniCartSummary.textContent = `🛒 ${items} item • Total ${rupiah(total)}`;
   el.miniCartBar.classList.remove("mini-cart-pop");
   void el.miniCartBar.offsetWidth;
@@ -145,8 +148,7 @@ function clearCart() {
   if (!ok) return;
   cart = [];
   saveCart();
-  renderCart();
-  renderProducts();
+  syncCartUI();
 }
 
 function renderCart() {
