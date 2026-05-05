@@ -43,7 +43,12 @@ const waNumber = (n) => n.replace(/\D/g, "").replace(/^0/, "62");
 const saveCart = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 const cartQty = (id) => (cart.find((i) => i.id === id)?.quantity || 0);
 const debugCart = (action) => console.log(`[cart-debug] ${action}`, { cart: [...cart] });
+const normalizeCart = () => {
+  cart = cart.filter((i) => Number(i.quantity) > 0);
+};
 function syncCartUI() {
+  normalizeCart();
+  saveCart();
   renderCart();
   renderProducts();
   updateFloatingCart();
@@ -137,8 +142,9 @@ function updateFloatingCart() {
   if (!el.miniCartBar || !el.miniCartSummary) return;
   const items = totalItems();
   const total = totalPrice();
+  const isEmpty = cart.length === 0 || items === 0;
 
-  if (!items) {
+  if (isEmpty) {
     el.miniCartSummary.textContent = "🛒 0 item • Total Rp0";
     el.miniCartBar.hidden = true;
     el.miniCartBar.classList.add("hidden");
@@ -170,6 +176,11 @@ function renderCart() {
   if (!cart.length) {
     el.cartItems.innerHTML = '<p class="empty-state">Keranjang masih kosong.</p>';
     el.total.textContent = rupiah(0);
+    if (el.miniCartBar) {
+      el.miniCartSummary.textContent = "🛒 0 item • Total Rp0";
+      el.miniCartBar.hidden = true;
+      el.miniCartBar.classList.add("hidden");
+    }
     return;
   }
   el.cartItems.innerHTML = cart.map((i) => `
