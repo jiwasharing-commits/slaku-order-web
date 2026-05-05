@@ -132,11 +132,13 @@ function renderMiniCart() {
 
   if (!items) {
     el.miniCartBar.hidden = true;
+    el.miniCartBar.classList.add("hidden");
     document.body.classList.remove("mini-cart-visible");
     return;
   }
 
   el.miniCartBar.hidden = false;
+  el.miniCartBar.classList.remove("hidden");
   document.body.classList.add("mini-cart-visible");
   el.miniCartSummary.textContent = `🛒 ${items} item • Total ${rupiah(total)}`;
   el.miniCartBar.classList.remove("mini-cart-pop");

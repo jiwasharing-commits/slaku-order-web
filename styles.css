@@ -98,8 +98,8 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .empty-state { color:#6e6259; }
 .btn-full { width:100%; }
 
-.mini-cart-visible .wa-float { bottom: 84px; }
-.mini-cart-visible .ig-float { bottom: 132px; }
+.mini-cart-visible .wa-float { bottom: 96px; }
+.mini-cart-visible .ig-float { bottom: 144px; }
 
 @media (max-width: 768px) {
   .hero {
@@ -443,8 +443,8 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 }
 
 @media (max-width: 768px) {
-  .mini-cart-visible .wa-float { bottom: 90px; }
-  .mini-cart-visible .ig-float { bottom: 136px; }
+  .mini-cart-visible .wa-float { bottom: 104px; }
+  .mini-cart-visible .ig-float { bottom: 152px; }
 
   .mini-cart-bar {
     bottom: 10px;
@@ -453,4 +453,3 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   }
   .mini-cart-summary { font-size: 0.8rem; }
 }
-
