@@ -391,3 +391,58 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   line-height: 1.45;
   color: #65584f;
 }
+
+.mini-cart-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  width: min(520px, calc(100% - 24px));
+  background: rgba(74, 46, 42, 0.96);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.35rem 0.4rem 0.35rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+  z-index: 1050;
+}
+
+.mini-cart-summary {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  font-size: 0.86rem;
+  cursor: pointer;
+  padding: 0.2rem 0.25rem;
+}
+
+.mini-cart-checkout {
+  border: 0;
+  border-radius: 999px;
+  background: #f1dfcf;
+  color: #4A2E2A;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
+.mini-cart-pop { animation: miniCartPulse 0.2s ease; }
+@keyframes miniCartPulse {
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(0.98); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+@media (max-width: 768px) {
+  .mini-cart-bar {
+    bottom: 10px;
+    width: calc(100% - 16px);
+    padding: 0.35rem 0.4rem 0.35rem 0.65rem;
+  }
+  .mini-cart-summary { font-size: 0.8rem; }
+}

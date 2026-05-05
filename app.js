@@ -30,7 +30,12 @@ const el = {
   cartItems: document.getElementById("cart-items"),
   total: document.getElementById("cart-total-price"),
   clearCartBtn: document.getElementById("clear-cart-btn"),
-  form: document.getElementById("order-form")
+  form: document.getElementById("order-form"),
+  miniCartBar: document.getElementById("mini-cart-bar"),
+  miniCartSummary: document.getElementById("mini-cart-summary"),
+  miniCartCheckout: document.getElementById("mini-cart-checkout"),
+  cartSection: document.getElementById("cart-section"),
+  checkoutSection: document.getElementById("customer-form-section")
 };
 
 const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
@@ -116,7 +121,24 @@ function removeItem(id) {
 }
 
 function totalPrice() { return cart.reduce((sum, i) => sum + i.price * i.quantity, 0); }
+function totalItems() { return cart.reduce((sum, i) => sum + i.quantity, 0); }
 
+function renderMiniCart() {
+  if (!el.miniCartBar || !el.miniCartSummary) return;
+  const items = totalItems();
+  const total = totalPrice();
+
+  if (!items) {
+    el.miniCartBar.hidden = true;
+    return;
+  }
+
+  el.miniCartBar.hidden = false;
+  el.miniCartSummary.textContent = `🛒 ${items} item • Total ${rupiah(total)}`;
+  el.miniCartBar.classList.remove("mini-cart-pop");
+  void el.miniCartBar.offsetWidth;
+  el.miniCartBar.classList.add("mini-cart-pop");
+}
 
 function clearCart() {
   const ok = confirm("Yakin mau kosongkan keranjang?");
@@ -131,6 +153,7 @@ function renderCart() {
   if (!cart.length) {
     el.cartItems.innerHTML = '<p class="empty-state">Keranjang masih kosong.</p>';
     el.total.textContent = rupiah(0);
+    renderMiniCart();
     return;
   }
   el.cartItems.innerHTML = cart.map((i) => `
@@ -147,6 +170,7 @@ function renderCart() {
   `).join("");
   const total = totalPrice();
   el.total.textContent = rupiah(total);
+  renderMiniCart();
 }
 
 function checkoutMessage(data) {
@@ -243,4 +267,16 @@ document.querySelectorAll('.interactive-btn, .wa-float').forEach((btn) => {
 
 if (el.clearCartBtn) {
   el.clearCartBtn.addEventListener("click", clearCart);
+}
+
+if (el.miniCartSummary && el.cartSection) {
+  el.miniCartSummary.addEventListener("click", () => {
+    el.cartSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+if (el.miniCartCheckout && el.checkoutSection) {
+  el.miniCartCheckout.addEventListener("click", () => {
+    el.checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
