@@ -45,6 +45,7 @@ const cartQty = (id) => (cart.find((i) => i.id === id)?.quantity || 0);
 function syncCartUI() {
   renderCart();
   renderProducts();
+  renderMiniCart();
 }
 
 
@@ -155,7 +156,6 @@ function renderCart() {
   if (!cart.length) {
     el.cartItems.innerHTML = '<p class="empty-state">Keranjang masih kosong.</p>';
     el.total.textContent = rupiah(0);
-    renderMiniCart();
     return;
   }
   el.cartItems.innerHTML = cart.map((i) => `
@@ -172,7 +172,6 @@ function renderCart() {
   `).join("");
   const total = totalPrice();
   el.total.textContent = rupiah(total);
-  renderMiniCart();
 }
 
 function checkoutMessage(data) {
@@ -231,8 +230,7 @@ el.form.addEventListener("submit", (e) => {
 });
 
 renderFilters();
-renderProducts();
-renderCart();
+syncCartUI();
 
 
 const testimonialTrack = document.getElementById("testimonial-track");
