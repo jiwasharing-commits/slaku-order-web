@@ -362,3 +362,6 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 }
 
 .btn:active, .step-btn:active, .qty-btn:active, .remove-btn:active { transform: scale(0.92); filter: brightness(0.95); }
+
+.clear-cart-btn { margin-top:.45rem; border:0; background:transparent; color:#7a5540; font-size:.82rem; text-decoration:underline; cursor:pointer; padding:0; }
+.clear-cart-btn:hover { color:#4A2E2A; }

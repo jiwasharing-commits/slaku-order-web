@@ -29,6 +29,7 @@ const el = {
   filters: document.getElementById("category-filters"),
   cartItems: document.getElementById("cart-items"),
   total: document.getElementById("cart-total-price"),
+  clearCartBtn: document.getElementById("clear-cart-btn"),
   form: document.getElementById("order-form")
 };
 
@@ -115,6 +116,16 @@ function removeItem(id) {
 }
 
 function totalPrice() { return cart.reduce((sum, i) => sum + i.price * i.quantity, 0); }
+
+
+function clearCart() {
+  const ok = confirm("Yakin mau kosongkan keranjang?");
+  if (!ok) return;
+  cart = [];
+  saveCart();
+  renderCart();
+  renderProducts();
+}
 
 function renderCart() {
   if (!cart.length) {
@@ -229,3 +240,7 @@ if (testimonialTrack && testimonialModal && testimonialModalImage && testimonial
 document.querySelectorAll('.interactive-btn, .wa-float').forEach((btn) => {
   btn.addEventListener('click', () => tapFeedback(btn));
 });
+
+if (el.clearCartBtn) {
+  el.clearCartBtn.addEventListener("click", clearCart);
+}
