@@ -21,8 +21,7 @@ const categories = ["Semua", "Cheese Tart", "Matcha", "Coklat", "Kopi"];
 let activeCategory = "Semua";
 let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-const PICKUP_ADDRESS = "Jalan Saribanon Blok H/5 Komplek Ciceri Indah Serang Banten (Masuk Dari Dokterlinda/Indomaret, gang ke dua belok kanan).";
-const PICKUP_MAPS = "https://bit.ly/425QLnw";
+const PICKUP_AREA = "Ciceri, Kota Serang, Banten";
 
 const el = {
   productList: document.getElementById("product-list"),
@@ -202,7 +201,7 @@ function renderCart() {
 function checkoutMessage(data) {
   const detail = cart.map((i, idx) => `${idx + 1}. ${i.name} x${i.quantity} = ${rupiah(i.price * i.quantity)}`).join("\n");
   const total = rupiah(totalPrice());
-  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nJam Pickup: ${data.time}\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nTerima kasih.`;
+  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nJam Pickup: ${data.time}\n\nLokasi pickup: ${PICKUP_AREA}\nDetail titik pickup akan dikonfirmasi admin.\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nTerima kasih.`;
 }
 
 el.filters.addEventListener("click", (e) => {
