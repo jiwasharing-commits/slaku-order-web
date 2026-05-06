@@ -254,8 +254,8 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   }
 }
 
-.mini-cart-visible .wa-float { bottom: 72px; }
-.mini-cart-visible .ig-float { bottom: 120px; }
+.mini-cart-visible .wa-float { bottom: 64px; }
+.mini-cart-visible .ig-float { bottom: 112px; }
 
 .card-stepper { display:flex; align-items:center; justify-content:space-between; gap:.6rem; border:1px solid #d8c5b2; border-radius:999px; padding:.25rem; max-width:170px; }
 .step-btn { width:36px; height:36px; border:0; border-radius:999px; background:#4A2E2A; color:#fff; font-size:1.1rem; cursor:pointer; }
@@ -446,8 +446,8 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 }
 
 @media (max-width: 768px) {
-  .mini-cart-visible .wa-float { bottom: 72px; }
-  .mini-cart-visible .ig-float { bottom: 120px; }
+  .mini-cart-visible .wa-float { bottom: 62px; }
+  .mini-cart-visible .ig-float { bottom: 110px; }
   .mini-cart-bar {
     bottom: 10px;
     right: 10px;
