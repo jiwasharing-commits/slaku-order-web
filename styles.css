@@ -63,7 +63,7 @@ body {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 .subtitle { max-width:42ch; }
-.layout { display:grid; gap:1rem; padding:1.25rem 0 2rem; background: transparent; }
+.layout { display:grid; gap:1rem; padding:1.25rem 0 6.25rem; background: transparent; }
 .card { background:var(--white); border-radius:14px; padding:1rem; box-shadow:0 8px 24px rgba(42,37,34,.08); }
 .section-note { margin-top:-.25rem; color:#6B6B6B; }
 .filters { display:flex; gap:.5rem; flex-wrap:wrap; margin:.75rem 0 1rem; }
@@ -99,6 +99,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .btn-full { width:100%; }
 
 @media (max-width: 768px) {
+  .layout { padding-bottom: 8rem; }
   .hero {
     min-height: 360px;
     background-position: center;
