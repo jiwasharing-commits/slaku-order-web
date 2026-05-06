@@ -209,20 +209,11 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   background: #946c45;
 }
 
-.floating-stack {
-  position: fixed;
-  right: 12px;
-  bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  z-index: 1050;
-}
-
 .ig-float,
 .wa-float {
-  position: static;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
   border-radius: 999px;
   color: #fff;
   display: inline-flex;
@@ -239,10 +230,12 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 
 .wa-float {
   background: #25D366;
+  bottom: 12px;
 }
 
 .ig-float {
   background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  bottom: 60px;
 }
 
 .ig-float:hover,
@@ -260,6 +253,9 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
     width: 100%;
   }
 }
+
+.mini-cart-visible .wa-float { bottom: 72px; }
+.mini-cart-visible .ig-float { bottom: 120px; }
 
 .card-stepper { display:flex; align-items:center; justify-content:space-between; gap:.6rem; border:1px solid #d8c5b2; border-radius:999px; padding:.25rem; max-width:170px; }
 .step-btn { width:36px; height:36px; border:0; border-radius:999px; background:#4A2E2A; color:#fff; font-size:1.1rem; cursor:pointer; }
@@ -340,7 +336,9 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .testi-badge { position:absolute; top:10px; left:10px; z-index:2; display:inline-flex; background:#f1e4cc; color:#6b4a1e; border-radius:999px; padding:.2rem .5rem; font-size:.68rem; font-weight:700; box-shadow:0 4px 10px rgba(0,0,0,.12); }
 @media (max-width: 768px) {
   .ig-float,
-  .wa-float { font-size:.76rem; padding:.55rem .75rem; }
+  .wa-float { font-size:.76rem; padding:.55rem .75rem; right:12px; }
+  .wa-float { bottom:12px; }
+  .ig-float { bottom:60px; }
   .testi-badge { top:8px; left:8px; font-size:.64rem; }
 }
 
@@ -401,8 +399,12 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 }
 
 .mini-cart-bar {
-  position: static;
-  width: min(340px, calc(100vw - 24px));
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  left: auto;
+  transform: none;
+  width: min(350px, calc(100% - 24px));
   background: rgba(74, 46, 42, 0.96);
   color: #fff;
   border-radius: 999px;
@@ -444,12 +446,11 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 }
 
 @media (max-width: 768px) {
-  .floating-stack {
-    right: 10px;
-    bottom: 10px;
-    gap: 7px;
-  }
+  .mini-cart-visible .wa-float { bottom: 72px; }
+  .mini-cart-visible .ig-float { bottom: 120px; }
   .mini-cart-bar {
+    bottom: 10px;
+    right: 10px;
     width: min(340px, calc(100% - 16px));
     padding: 0.35rem 0.4rem 0.35rem 0.65rem;
   }
