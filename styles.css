@@ -259,6 +259,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 
 .method-note { margin:.45rem 0 0; font-size:.88rem; color:#5a4c43; line-height:1.45; }
 .method-note a { color:#4A2E2A; font-weight:600; }
+.checkout-warning { margin: .1rem 0 -.15rem; font-size: .82rem; color: #8f2a2a; background: #fce9e9; border: 1px solid #f2c8c8; border-radius: 8px; padding: .45rem .55rem; }
 .terms-box { background:#f9efe4; border:1px solid #ead8c7; border-radius:10px; padding:.75rem; font-size:.9rem; }
 .terms-box p { margin:.1rem 0 .35rem; }
 .terms-box ul { margin:.2rem 0 0; padding-left:1rem; display:grid; gap:.3rem; }

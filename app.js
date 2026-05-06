@@ -34,7 +34,8 @@ const el = {
   miniCartSummary: document.getElementById("mini-cart-summary"),
   miniCartCheckout: document.getElementById("mini-cart-checkout"),
   cartSection: document.getElementById("cart-section"),
-  checkoutSection: document.getElementById("customer-form-section")
+  checkoutSection: document.getElementById("customer-form-section"),
+  checkoutWarning: document.getElementById("checkout-warning")
 };
 
 const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
@@ -204,6 +205,35 @@ function checkoutMessage(data) {
   return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nJam Pickup: ${data.time}\n\nLokasi pickup: ${PICKUP_AREA}\nDetail titik pickup akan dikonfirmasi admin.\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nTerima kasih.`;
 }
 
+function getCheckoutFormData() {
+  return {
+    name: document.getElementById("customer-name").value.trim(),
+    phone: document.getElementById("customer-phone").value.trim(),
+    method: "Pickup Mandiri / Pickup Kurir (Gojek/Maxim)",
+    time: document.getElementById("order-time").value
+  };
+}
+
+function runWhatsAppCheckout() {
+  if (!cart.length) {
+    alert("Keranjang masih kosong.");
+    return;
+  }
+  const formData = getCheckoutFormData();
+  const url = `https://wa.me/${waNumber(ADMIN_WHATSAPP_NUMBER)}?text=${encodeURIComponent(checkoutMessage(formData))}`;
+  window.open(url, "_blank");
+}
+
+function showCheckoutWarning(message) {
+  if (!el.checkoutWarning) return;
+  el.checkoutWarning.textContent = message;
+  el.checkoutWarning.hidden = false;
+  clearTimeout(showCheckoutWarning.timeoutId);
+  showCheckoutWarning.timeoutId = setTimeout(() => {
+    el.checkoutWarning.hidden = true;
+  }, 2200);
+}
+
 el.filters.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-category]");
   if (!btn) return;
@@ -242,15 +272,7 @@ el.cartItems.addEventListener("click", (e) => {
 
 el.form.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (!cart.length) return alert("Keranjang masih kosong.");
-  const formData = {
-    name: document.getElementById("customer-name").value.trim(),
-    phone: document.getElementById("customer-phone").value.trim(),
-    method: "Pickup Mandiri / Pickup Kurir (Gojek/Maxim)",
-    time: document.getElementById("order-time").value
-  };
-  const url = `https://wa.me/${waNumber(ADMIN_WHATSAPP_NUMBER)}?text=${encodeURIComponent(checkoutMessage(formData))}`;
-  window.open(url, "_blank");
+  runWhatsAppCheckout();
 });
 
 renderFilters();
@@ -301,6 +323,12 @@ if (el.miniCartSummary && el.cartSection) {
 
 if (el.miniCartCheckout && el.checkoutSection) {
   el.miniCartCheckout.addEventListener("click", () => {
-    el.checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    const formData = getCheckoutFormData();
+    if (!formData.name || !formData.phone || !formData.time) {
+      el.checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      showCheckoutWarning("Lengkapi data pesanan dulu sebelum checkout ke WhatsApp.");
+      return;
+    }
+    runWhatsAppCheckout();
   });
 }
