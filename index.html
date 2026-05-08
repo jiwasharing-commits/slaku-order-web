@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <title>Slaku Order</title>
+    <meta property="og:title" content="Slaku - Teman Ngopi & Dessert Paling Nagih" />
+    <meta property="og:description" content="Pesan minuman creamy dan dessert Slaku. PO Sabtu & Minggu, checkout otomatis ke WhatsApp." />
+    <meta property="og:image" content="https://slakutime.com/assets/preview-slaku.jpg" />
+    <meta property="og:url" content="https://slakutime.com/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Slaku - Teman Ngopi & Dessert Paling Nagih" />
+    <meta name="twitter:description" content="Pesan minuman creamy dan dessert Slaku. PO Sabtu & Minggu, checkout otomatis ke WhatsApp." />
+    <meta name="twitter:image" content="https://slakutime.com/assets/preview-slaku.jpg" />
+    <link rel="icon" type="image/png" href="./favicon.png?v=2">
+    <link rel="shortcut icon" type="image/png" href="./favicon.png?v=2">
+    <link rel="apple-touch-icon" href="./favicon.png?v=2">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <div class="container">
+        <div class="brand-badge"><img src="assets/slakulogo.png" alt="Slaku" class="brand-logo" /></div>
+        <h1>Teman Ngopi & Dessert Paling Nagih</h1>
+        <p class="subtitle">Dari minuman sampai dessert, semuanya dibuat creamy, balance, dan konsisten—pas buat nemenin momen santai kamu.</p>
+        <p class="trust-text">🔥 Bisa dipesan untuk Sabtu & Minggu • Disarankan order H-1 (pre-order)</p>
+
+        <div class="hero-cta-group">
+          <a href="#menu" class="btn btn-primary interactive-btn">Pesan via Web</a>
+          <a href="https://wa.me/6287865706644" target="_blank" rel="noopener noreferrer" class="btn btn-secondary interactive-btn">Order via WhatsApp</a>
+        </div>
+
+        <p class="hero-helper">⭐ Favorit: Matcha 1L & Cheese Tart</p>
+
+        
+      </div>
+    </header>
+    <div class="announce-bar" aria-label="Info pemesanan">
+      <div class="announce-track">🔥 Slot weekend terbatas • Order H-1 biar pasti kebagian • Matcha 1L & Cheese Tart favorit pelanggan</div>
+    </div>
+
+
+    <section class="container testimonial-section" id="testimonials">
+      <p class="testimonial-intro">⭐ Banyak pelanggan repeat order karena rasa yang konsisten</p>
+      <h2>Yang Sudah Coba Slaku</h2>
+      <div class="testimonial-track" id="testimonial-track">
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.00.03.jpeg"><img src="./WhatsApp%20Image%202026-05-02%20at%2021.00.03.jpeg" alt="Testimoni WhatsApp 1" loading="lazy" /><p>Lihat testimoni</p></article>
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.00.42.jpeg"><span class="testi-badge">⭐ Paling sering disebut</span><img src="./WhatsApp%20Image%202026-05-02%20at%2021.00.42.jpeg" alt="Testimoni WhatsApp 2" loading="lazy" /><p>Lihat testimoni</p></article>
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.01.11.jpeg"><img src="./WhatsApp%20Image%202026-05-02%20at%2021.01.11.jpeg" alt="Testimoni WhatsApp 3" loading="lazy" /><p>Lihat testimoni</p></article>
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.01.40.jpeg"><img src="./WhatsApp%20Image%202026-05-02%20at%2021.01.40.jpeg" alt="Testimoni WhatsApp 4" loading="lazy" /><p>Lihat testimoni</p></article>
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.02.11.jpeg"><img src="./WhatsApp%20Image%202026-05-02%20at%2021.02.11.jpeg" alt="Testimoni WhatsApp 5" loading="lazy" /><p>Lihat testimoni</p></article>
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.02.46.jpeg"><img src="./WhatsApp%20Image%202026-05-02%20at%2021.02.46.jpeg" alt="Testimoni WhatsApp 6" loading="lazy" /><p>Lihat testimoni</p></article>
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.03.50.jpeg"><img src="./WhatsApp%20Image%202026-05-02%20at%2021.03.50.jpeg" alt="Testimoni WhatsApp 7" loading="lazy" /><p>Lihat testimoni</p></article>
+        <article class="testimonial-card" data-full="./WhatsApp%20Image%202026-05-02%20at%2021.04.37.jpeg"><img src="./WhatsApp%20Image%202026-05-02%20at%2021.04.37.jpeg" alt="Testimoni WhatsApp 8" loading="lazy" /><p>Lihat testimoni</p></article>
+      </div>
+    </section>
+
+
+    <main class="container layout">
+      <section class="card" id="menu">
+        <h2>Menu Slaku</h2>
+        <p class="section-note">Pilih menu favoritmu, tambahkan ke keranjang, lalu checkout—pesanan akan otomatis diteruskan ke WhatsApp Slaku.</p>
+
+        <div class="filters" id="category-filters"></div>
+        <div id="product-list" class="product-list"></div>
+
+        <div class="cart-inline" id="cart-section">
+          <h3>Keranjang</h3>
+          <div id="cart-items" class="cart-items"></div>
+          <div class="cart-total"><span>Total</span><strong id="cart-total-price">Rp0</strong></div>
+          <button type="button" id="clear-cart-btn" class="clear-cart-btn">🗑 Kosongkan Keranjang</button>
+        </div>
+      </section>
+
+      <section class="card" id="customer-form-section">
+        <h2>Detail Pemesan</h2>
+        <p class="order-timing-note">📅 Bisa mulai pesan dari sekarang untuk Sabtu & Minggu (disarankan H-1)<br />📩 Di luar hari tersebut, silakan konfirmasi via WhatsApp</p>
+        <form id="order-form">
+          <label>Nama<input type="text" id="customer-name" required /></label>
+          <label>No HP<input type="tel" id="customer-phone" required /></label>
+
+          <fieldset>
+            <legend>Metode Pesanan</legend>
+            <label class="radio"><input type="radio" name="order-method" value="Pickup Mandiri / Pickup Kurir (Gojek/Maxim)" checked /> Pickup Mandiri / Pickup Kurir (Gojek/Maxim)</label>
+            <p class="method-note">Pickup mandiri atau pickup kurir tersedia. Lokasi umum Slaku berada di area Ciceri, Kota Serang, Banten. Detail titik pickup akan dikonfirmasi oleh admin melalui WhatsApp setelah checkout.</p>
+          </fieldset>
+
+          <label>Jam Pickup<input type="time" id="order-time" required /></label>
+
+          <div class="order-info-grid">
+            <div class="pickup-info">
+              <p><strong>Info Pickup</strong></p>
+              <p>📍 Area Slaku: Ciceri, Kota Serang, Banten</p>
+              <p>Detail titik pickup akan dikonfirmasi oleh admin melalui WhatsApp.</p>
+            </div>
+
+            <div class="terms-box">
+              <p><strong>Syarat PO</strong></p>
+              <ul>
+                <li>Sistem PO: pesanan hanya untuk hari Sabtu & Minggu.</li>
+                <li>Pemesanan disarankan H-1 (made by order).</li>
+                <li>Kadang tersedia ready stock, wajib konfirmasi via WhatsApp terlebih dahulu.</li>
+                <li>Jam pengambilan maksimal sampai pukul 19.00.</li>
+              </ul>
+            </div>
+          </div>
+
+          <p id="checkout-warning" class="checkout-warning" hidden>Lengkapi data pesanan dulu sebelum checkout ke WhatsApp.</p>
+          <button type="submit" class="btn btn-primary btn-full">Checkout via WhatsApp</button>
+        </form>
+      </section>
+    </main>
+
+    <div class="floating-stack">
+      <a href="https://instagram.com/slakucoffee" target="_blank" rel="noopener noreferrer" class="ig-float" aria-label="Follow Slaku di Instagram">📷 Follow Slaku</a>
+      <a href="https://wa.me/6287865706644" target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Order via WhatsApp">💬 Mau langsung order? Chat WA</a>
+      <div id="mini-cart-bar" class="mini-cart-bar hidden" hidden>
+        <button type="button" id="mini-cart-summary" class="mini-cart-summary">🛒 0 item • Total Rp0</button>
+        <button type="button" id="mini-cart-checkout" class="mini-cart-checkout">Checkout</button>
+      </div>
+    </div>
+
+    <div class="testimonial-modal" id="testimonial-modal" aria-hidden="true">
+      <div class="testimonial-modal-inner">
+        <button class="modal-close" id="testimonial-close" aria-label="Tutup">×</button>
+        <img id="testimonial-modal-image" src="" alt="Preview testimoni" />
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
