@@ -90,7 +90,7 @@ body {
 .cart-total { display:flex; justify-content:space-between; margin-top:.7rem; font-size:1.05rem; }
 form { display:grid; gap:.75rem; }
 label,legend { font-size:.95rem; font-weight:600; }
-input,textarea { width:100%; margin-top:.35rem; border:1px solid #d8ccbf; border-radius:8px; padding:.65rem; font:inherit; }
+input,textarea,select { width:100%; margin-top:.35rem; border:1px solid #d8ccbf; border-radius:8px; padding:.65rem; font:inherit; background:#fff; }
 fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; display:grid; gap:.4rem; }
 .radio { display:flex; align-items:center; gap:.45rem; font-weight:500; }
 .radio input { width:auto; margin:0; }

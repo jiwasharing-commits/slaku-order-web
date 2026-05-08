@@ -87,7 +87,18 @@
             <p class="method-note">Pickup mandiri atau pickup kurir tersedia. Lokasi umum Slaku berada di area Ciceri, Kota Serang, Banten. Detail titik pickup akan dikonfirmasi oleh admin melalui WhatsApp setelah checkout.</p>
           </fieldset>
 
-          <label>Jam Pickup<input type="time" id="order-time" required /></label>
+          <label>Hari Pickup
+            <select id="pickup-day" required>
+              <option value="">Pilih hari pickup</option>
+              <option value="Sabtu">Sabtu</option>
+              <option value="Minggu">Minggu</option>
+            </select>
+          </label>
+          <label>Jam Pickup
+            <select id="order-time" required disabled>
+              <option value="">Pilih hari pickup dulu</option>
+            </select>
+          </label>
 
           <div class="order-info-grid">
             <div class="pickup-info">

@@ -35,7 +35,14 @@ const el = {
   miniCartCheckout: document.getElementById("mini-cart-checkout"),
   cartSection: document.getElementById("cart-section"),
   checkoutSection: document.getElementById("customer-form-section"),
-  checkoutWarning: document.getElementById("checkout-warning")
+  checkoutWarning: document.getElementById("checkout-warning"),
+  pickupDay: document.getElementById("pickup-day"),
+  pickupTime: document.getElementById("order-time")
+};
+
+const PICKUP_TIME_OPTIONS = {
+  Sabtu: ["14.00", "14.30", "15.00", "15.30", "16.00", "16.30", "17.00", "17.30", "18.00"],
+  Minggu: ["10.00", "10.30", "11.00", "11.30", "12.00", "12.30", "13.00", "13.30", "14.00", "14.30", "15.00", "15.30", "16.00", "16.30", "17.00", "17.30", "18.00"]
 };
 
 const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
@@ -202,7 +209,7 @@ function renderCart() {
 function checkoutMessage(data) {
   const detail = cart.map((i, idx) => `${idx + 1}. ${i.name} x${i.quantity} = ${rupiah(i.price * i.quantity)}`).join("\n");
   const total = rupiah(totalPrice());
-  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nJam Pickup: ${data.time}\n\nLokasi pickup: ${PICKUP_AREA}\nDetail titik pickup akan dikonfirmasi admin.\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nTerima kasih.`;
+  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nHari Pickup: ${data.day}\nJam Pickup: ${data.time}\n\nLokasi pickup: ${PICKUP_AREA}\nDetail titik pickup akan dikonfirmasi admin.\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nTerima kasih.`;
 }
 
 function getCheckoutFormData() {
@@ -210,8 +217,25 @@ function getCheckoutFormData() {
     name: document.getElementById("customer-name").value.trim(),
     phone: document.getElementById("customer-phone").value.trim(),
     method: "Pickup Mandiri / Pickup Kurir (Gojek/Maxim)",
+    day: el.pickupDay?.value || "",
     time: document.getElementById("order-time").value
   };
+}
+
+function renderPickupTimeOptions(day) {
+  if (!el.pickupTime) return;
+  const options = PICKUP_TIME_OPTIONS[day] || [];
+  el.pickupTime.innerHTML = "";
+
+  if (!options.length) {
+    el.pickupTime.disabled = true;
+    el.pickupTime.innerHTML = '<option value="">Pilih hari pickup dulu</option>';
+    return;
+  }
+
+  el.pickupTime.disabled = false;
+  el.pickupTime.innerHTML = '<option value="">Pilih jam pickup</option>' +
+    options.map((time) => `<option value="${time}">${time}</option>`).join("");
 }
 
 function runWhatsAppCheckout() {
@@ -220,6 +244,14 @@ function runWhatsAppCheckout() {
     return;
   }
   const formData = getCheckoutFormData();
+  if (!formData.name || !formData.phone) {
+    showCheckoutWarning("Lengkapi data pesanan dulu sebelum checkout ke WhatsApp.");
+    return;
+  }
+  if (!formData.day || !formData.time) {
+    showCheckoutWarning("Pilih hari dan jam pickup terlebih dahulu.");
+    return;
+  }
   const url = `https://wa.me/${waNumber(ADMIN_WHATSAPP_NUMBER)}?text=${encodeURIComponent(checkoutMessage(formData))}`;
   window.open(url, "_blank");
 }
@@ -277,6 +309,13 @@ el.form.addEventListener("submit", (e) => {
 
 renderFilters();
 syncCartUI();
+renderPickupTimeOptions(el.pickupDay?.value || "");
+
+if (el.pickupDay) {
+  el.pickupDay.addEventListener("change", () => {
+    renderPickupTimeOptions(el.pickupDay.value);
+  });
+}
 
 
 const testimonialTrack = document.getElementById("testimonial-track");
@@ -324,9 +363,14 @@ if (el.miniCartSummary && el.cartSection) {
 if (el.miniCartCheckout && el.checkoutSection) {
   el.miniCartCheckout.addEventListener("click", () => {
     const formData = getCheckoutFormData();
-    if (!formData.name || !formData.phone || !formData.time) {
+    if (!formData.name || !formData.phone) {
       el.checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
       showCheckoutWarning("Lengkapi data pesanan dulu sebelum checkout ke WhatsApp.");
+      return;
+    }
+    if (!formData.day || !formData.time) {
+      el.checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      showCheckoutWarning("Pilih hari dan jam pickup terlebih dahulu.");
       return;
     }
     runWhatsAppCheckout();
