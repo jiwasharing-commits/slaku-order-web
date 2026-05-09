@@ -97,8 +97,13 @@ function renderFilters() {
 function renderProducts() {
   const list = activeCategory === "Semua" ? products : products.filter((p) => p.category === activeCategory);
   const selectedDay = el.pickupDay?.value || "";
+  const selectedTime = el.pickupTime?.value || "";
+  const scheduleReady = Boolean(selectedDay && selectedTime);
   const isFullMenu = FULL_MENU_DAYS.has(selectedDay);
   const canAddForDay = (product) => !selectedDay || isFullMenu || WEEKDAY_MENU_IDS.has(product.id);
+  const scheduleButton = !selectedDay
+    ? `<button class="btn btn-outline" type="button" data-require-schedule="day">Isi Hari & Jam Pickup</button>`
+    : `<button class="btn btn-outline" type="button" data-require-schedule="time">Isi Jam Pickup</button>`;
   el.productList.innerHTML = list
     .map((p) => `
       <article class="product-item product-card">
@@ -115,7 +120,7 @@ function renderProducts() {
           </div>
         </div>
         ${!canAddForDay(p) ? `<p class="availability-note">Khusus Sabtu, Minggu & Senin</p>` : ""}
-        ${canAddForDay(p) ? (cartQty(p.id) === 0 ? `<button class="btn btn-outline" data-add-id="${p.id}">Tambah Keranjang</button>` : `<div class="card-stepper"><button class="step-btn" data-card-qty-id="${p.id}" data-delta="-1">−</button><span class="step-value">${cartQty(p.id)}</span><button class="step-btn" data-card-qty-id="${p.id}" data-delta="1">+</button></div>`) : `<button class="btn btn-outline" type="button" disabled>Tidak tersedia</button>`}
+        ${canAddForDay(p) ? (cartQty(p.id) === 0 ? (scheduleReady ? `<button class="btn btn-outline" data-add-id="${p.id}">Tambah Keranjang</button>` : scheduleButton) : `<div class="card-stepper"><button class="step-btn" data-card-qty-id="${p.id}" data-delta="-1">−</button><span class="step-value">${cartQty(p.id)}</span><button class="step-btn" data-card-qty-id="${p.id}" data-delta="1">+</button></div>`) : `<button class="btn btn-outline" type="button" disabled>Tidak tersedia</button>`}
       </article>
     `)
     .join("");
@@ -290,13 +295,17 @@ function runWhatsAppCheckout() {
   }
   if (!formData.day || !formData.time) {
     showCheckoutWarning("Pilih hari dan jam pickup terlebih dahulu.");
-    if (el.pickupSection) el.pickupSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    const target = !formData.day ? el.pickupDay : el.pickupTime;
-    setTimeout(() => target?.focus(), 260);
+    focusPickupField(!formData.day ? "day" : "time");
     return;
   }
   const url = `https://wa.me/${waNumber(ADMIN_WHATSAPP_NUMBER)}?text=${encodeURIComponent(checkoutMessage(formData))}`;
   window.open(url, "_blank");
+}
+
+function focusPickupField(target = "day") {
+  if (el.pickupSection) el.pickupSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  const field = target === "day" ? el.pickupDay : el.pickupTime;
+  setTimeout(() => field?.focus(), 260);
 }
 
 function showCheckoutWarning(message) {
@@ -320,6 +329,14 @@ el.filters.addEventListener("click", (e) => {
 el.productList.addEventListener("click", (e) => {
   const addBtn = e.target.closest("[data-add-id]");
   const qtyBtn = e.target.closest("[data-card-qty-id]");
+  const requireSchedule = e.target.closest("[data-require-schedule]");
+
+  if (requireSchedule) {
+    const target = requireSchedule.dataset.requireSchedule;
+    showCheckoutWarning("Pilih hari dan jam pickup terlebih dahulu.");
+    focusPickupField(target);
+    return;
+  }
 
   if (addBtn) {
     tapFeedback(addBtn);
@@ -360,6 +377,12 @@ if (el.pickupDay) {
     enforceCartByPickupDay(el.pickupDay.value);
     renderPickupTimeOptions(el.pickupDay.value);
     syncCartUI();
+  });
+}
+
+if (el.pickupTime) {
+  el.pickupTime.addEventListener("change", () => {
+    renderProducts();
   });
 }
 
@@ -415,10 +438,8 @@ if (el.miniCartCheckout && el.checkoutSection) {
       return;
     }
     if (!formData.day || !formData.time) {
-      if (el.pickupSection) el.pickupSection.scrollIntoView({ behavior: "smooth", block: "start" });
       showCheckoutWarning("Pilih hari dan jam pickup terlebih dahulu.");
-      const target = !formData.day ? el.pickupDay : el.pickupTime;
-      setTimeout(() => target?.focus(), 260);
+      focusPickupField(!formData.day ? "day" : "time");
       return;
     }
     runWhatsAppCheckout();
