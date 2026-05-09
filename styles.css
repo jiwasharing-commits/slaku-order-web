@@ -68,6 +68,7 @@ body {
 }
 .subtitle { max-width:42ch; }
 .layout { display:grid; gap:1rem; padding:1.25rem 0 6.25rem; background: transparent; width:100%; max-width:100%; }
+.layout > * { min-width: 0; }
 .card { background:var(--white); border-radius:14px; padding:1rem; box-shadow:0 8px 24px rgba(42,37,34,.08); }
 #menu { width:100%; max-width:860px; margin:0 auto; }
 .section-note { margin-top:-.25rem; color:#6B6B6B; }
@@ -298,6 +299,8 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   background: rgba(255, 246, 238, 0.88);
   border-radius: 16px;
   padding: 0.85rem;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .testimonial-intro {
@@ -316,6 +319,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   grid-auto-columns: minmax(220px, 260px);
   gap: 0.75rem;
   overflow-x: auto;
+  width: 100%;
   max-width: 100%;
   padding-bottom: 0.25rem;
   scroll-snap-type: x mandatory;
@@ -347,7 +351,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   }
 }
 
-.testimonial-track { grid-auto-columns: 170px; }
+.testimonial-track { grid-auto-columns: minmax(160px, 170px); }
 .testimonial-card { position: relative; padding: .45rem; cursor: pointer; }
 .testimonial-card img { width:100%; height:220px; object-fit: cover; border-radius: 10px; background:#f5efe9; }
 .testimonial-card p { margin:.45rem .2rem .15rem; font-size:.82rem; font-weight:600; color:#5c4c41; text-align:center; }
