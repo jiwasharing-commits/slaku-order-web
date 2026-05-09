@@ -69,11 +69,12 @@ body {
 .subtitle { max-width:42ch; }
 .layout { display:grid; gap:1rem; padding:1.25rem 0 6.25rem; background: transparent; width:100%; max-width:100%; }
 .card { background:var(--white); border-radius:14px; padding:1rem; box-shadow:0 8px 24px rgba(42,37,34,.08); }
+#menu { width:100%; max-width:860px; margin:0 auto; }
 .section-note { margin-top:-.25rem; color:#6B6B6B; }
 .filters { display:flex; gap:.5rem; flex-wrap:wrap; margin:.75rem 0 1rem; }
 .filter-btn { border:1px solid #dbcfc2; background:#fff; border-radius:999px; padding:.45rem .8rem; cursor:pointer; }
 .filter-btn.is-active { background:var(--matcha-soft); border-color:var(--matcha-soft); }
-.product-list { display:grid; gap:.7rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.product-list { display:grid; gap:.7rem; grid-template-columns: 1fr; }
 .product-item { position:relative; border:1px solid #f0e3d7; background:#fffdfa; border-radius:14px; padding:.9rem; display:grid; gap:.75rem; box-shadow:0 8px 20px rgba(74,46,42,.08); }
 .product-header { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
 .product-main { display:grid; grid-template-columns:98px 1fr; gap:.8rem; align-items:start; }
@@ -128,7 +129,9 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   .product-main { grid-template-columns:78px 1fr; gap:.65rem; }
   .product-thumb { width:78px; height:78px; }
   .product-title, .product-name { line-height:1.25; word-break: break-word; }
-  .product-desc { overflow-wrap:anywhere; }
+  .product-desc { overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient: vertical; overflow:hidden; }
+  .btn-outline { width:100%; min-height:42px; }
+  .card-stepper { max-width: 100%; width: 170px; }
 }
 
 @media (min-width:768px){ .hero h1{font-size:2.4rem;} }
