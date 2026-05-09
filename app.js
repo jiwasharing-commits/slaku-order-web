@@ -41,9 +41,16 @@ const el = {
 };
 
 const PICKUP_TIME_OPTIONS = {
+  Senin: ["18.00", "18.30", "19.00", "19.30", "20.00"],
+  Selasa: ["18.00", "18.30", "19.00", "19.30", "20.00"],
+  Rabu: ["18.00", "18.30", "19.00", "19.30", "20.00"],
+  Kamis: ["18.00", "18.30", "19.00", "19.30", "20.00"],
+  Jumat: ["18.00", "18.30", "19.00", "19.30", "20.00"],
   Sabtu: ["14.00", "14.30", "15.00", "15.30", "16.00", "16.30", "17.00", "17.30", "18.00"],
   Minggu: ["10.00", "10.30", "11.00", "11.30", "12.00", "12.30", "13.00", "13.30", "14.00", "14.30", "15.00", "15.30", "16.00", "16.30", "17.00", "17.30", "18.00"]
 };
+const FULL_MENU_DAYS = new Set(["Sabtu", "Minggu", "Senin"]);
+const WEEKDAY_MENU_IDS = new Set([5, 6, 7, 8, 11, 12]);
 
 const rupiah = (value) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
 const waNumber = (n) => n.replace(/\D/g, "").replace(/^0/, "62");
@@ -88,6 +95,9 @@ function renderFilters() {
 
 function renderProducts() {
   const list = activeCategory === "Semua" ? products : products.filter((p) => p.category === activeCategory);
+  const selectedDay = el.pickupDay?.value || "";
+  const isFullMenu = FULL_MENU_DAYS.has(selectedDay);
+  const canAddForDay = (product) => !selectedDay || isFullMenu || WEEKDAY_MENU_IDS.has(product.id);
   el.productList.innerHTML = list
     .map((p) => `
       <article class="product-item product-card">
@@ -103,7 +113,8 @@ function renderProducts() {
             <p class="product-price">${rupiah(p.price)}</p>
           </div>
         </div>
-        ${cartQty(p.id) === 0 ? `<button class="btn btn-outline" data-add-id="${p.id}">Tambah Keranjang</button>` : `<div class="card-stepper"><button class="step-btn" data-card-qty-id="${p.id}" data-delta="-1">−</button><span class="step-value">${cartQty(p.id)}</span><button class="step-btn" data-card-qty-id="${p.id}" data-delta="1">+</button></div>`}
+        ${!canAddForDay(p) ? `<p class="availability-note">Khusus Sabtu, Minggu & Senin</p>` : ""}
+        ${canAddForDay(p) ? (cartQty(p.id) === 0 ? `<button class="btn btn-outline" data-add-id="${p.id}">Tambah Keranjang</button>` : `<div class="card-stepper"><button class="step-btn" data-card-qty-id="${p.id}" data-delta="-1">−</button><span class="step-value">${cartQty(p.id)}</span><button class="step-btn" data-card-qty-id="${p.id}" data-delta="1">+</button></div>`) : `<button class="btn btn-outline" type="button" disabled>Tidak tersedia</button>`}
       </article>
     `)
     .join("");
@@ -209,7 +220,7 @@ function renderCart() {
 function checkoutMessage(data) {
   const detail = cart.map((i, idx) => `${idx + 1}. ${i.name} x${i.quantity} = ${rupiah(i.price * i.quantity)}`).join("\n");
   const total = rupiah(totalPrice());
-  return `Halo Slaku, saya mau pesan:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nMetode: ${data.method}\nHari Pickup: ${data.day}\nJam Pickup: ${data.time}\n\nLokasi pickup: ${PICKUP_AREA}\nDetail titik pickup akan dikonfirmasi admin.\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nTerima kasih.`;
+  return `Halo Slaku 👋, saya mau order:\n\nNama: ${data.name}\nNo HP: ${data.phone}\nHari Pickup: ${data.day}\nJam Pickup: ${data.time}\nMetode: ${data.method}\n\nDetail Pesanan:\n${detail}\n\nTotal: ${total}\n\nLokasi pickup: ${PICKUP_AREA}\nDetail titik pickup akan dikonfirmasi admin.\n\nCatatan:`;
 }
 
 function getCheckoutFormData() {
@@ -236,6 +247,32 @@ function renderPickupTimeOptions(day) {
   el.pickupTime.disabled = false;
   el.pickupTime.innerHTML = '<option value="">Pilih jam pickup</option>' +
     options.map((time) => `<option value="${time}">${time}</option>`).join("");
+}
+
+function renderPickupDayOptions() {
+  if (!el.pickupDay) return;
+  const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  const now = new Date();
+  const baseJakarta = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+  const previous = el.pickupDay.value;
+  let html = '<option value="">Pilih hari pickup</option>';
+  for (let i = 1; i <= 7; i += 1) {
+    const d = new Date(baseJakarta);
+    d.setDate(baseJakarta.getDate() + i);
+    const name = dayNames[d.getDay()];
+    html += `<option value="${name}">${name}</option>`;
+  }
+  el.pickupDay.innerHTML = html;
+  if (previous) el.pickupDay.value = previous;
+}
+
+function enforceCartByPickupDay(day) {
+  if (!day || FULL_MENU_DAYS.has(day)) return;
+  const before = cart.length;
+  cart = cart.filter((i) => WEEKDAY_MENU_IDS.has(i.id));
+  if (cart.length !== before) {
+    showCheckoutWarning("Beberapa produk dihapus karena hanya tersedia Sabtu, Minggu & Senin.");
+  }
 }
 
 function runWhatsAppCheckout() {
@@ -309,11 +346,14 @@ el.form.addEventListener("submit", (e) => {
 
 renderFilters();
 syncCartUI();
+renderPickupDayOptions();
 renderPickupTimeOptions(el.pickupDay?.value || "");
 
 if (el.pickupDay) {
   el.pickupDay.addEventListener("change", () => {
+    enforceCartByPickupDay(el.pickupDay.value);
     renderPickupTimeOptions(el.pickupDay.value);
+    syncCartUI();
   });
 }
 
