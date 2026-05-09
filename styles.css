@@ -26,6 +26,14 @@ body {
 .container { width:100%; max-width:1120px; margin:0 auto; padding-inline:16px; }
 .hero {
   position: relative;
+  min-height: auto;
+  color: white;
+  padding-top: 0.85rem;
+}
+.hero .container {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
   min-height: 420px;
   background-image:
     linear-gradient(
@@ -35,11 +43,13 @@ body {
     url("assets/baner-slaku.jpg");
   background-size: cover;
   background-position: center;
-  color: white;
+  border-radius: 16px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 1.1rem 1rem;
 }
-.hero .container { width: 100%; max-width: 860px; margin: 0 auto; }
 .brand-badge {
   width: 50px;
   height: 50px;
@@ -110,8 +120,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 @media (max-width: 768px) {
   .layout { padding-bottom: 8rem; }
   .hero {
-    min-height: 360px;
-    background-position: center;
+    padding-top: 0.65rem;
   }
 
   .brand-badge {
@@ -122,6 +131,11 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 
   .brand-logo {
     max-height: 28px;
+  }
+  .hero .container {
+    min-height: 360px;
+    border-radius: 14px;
+    padding: 1rem .9rem;
   }
 
   body {
