@@ -5,9 +5,10 @@
   --text-dark: #2B2B2B;
   --white: #fff;
 }
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 html, body {
   min-height: 100%;
+  width: 100%;
   max-width: 100%;
   overflow-x: hidden;
 }
@@ -22,7 +23,7 @@ body {
   background-size: 320px;
   background-attachment: scroll;
 }
-.container { width:min(1120px,94%); max-width:100%; margin:0 auto; padding-inline: 6px; }
+.container { width:100%; max-width:1120px; margin:0 auto; padding-inline:16px; }
 .hero {
   position: relative;
   min-height: 420px;
@@ -72,7 +73,7 @@ body {
 .filters { display:flex; gap:.5rem; flex-wrap:wrap; margin:.75rem 0 1rem; }
 .filter-btn { border:1px solid #dbcfc2; background:#fff; border-radius:999px; padding:.45rem .8rem; cursor:pointer; }
 .filter-btn.is-active { background:var(--matcha-soft); border-color:var(--matcha-soft); }
-.product-list { display:grid; gap:.7rem; grid-template-columns: 1fr; }
+.product-list { display:grid; gap:.7rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 .product-item { position:relative; border:1px solid #f0e3d7; background:#fffdfa; border-radius:14px; padding:.9rem; display:grid; gap:.75rem; box-shadow:0 8px 20px rgba(74,46,42,.08); }
 .product-header { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
 .product-main { display:grid; grid-template-columns:98px 1fr; gap:.8rem; align-items:start; }
@@ -121,14 +122,18 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   body {
     background-size: 240px;
   }
+  .filters { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+  .filters::-webkit-scrollbar { display: none; }
+  .product-list { grid-template-columns: 1fr; }
   .product-main { grid-template-columns:78px 1fr; gap:.65rem; }
   .product-thumb { width:78px; height:78px; }
   .product-title, .product-name { line-height:1.25; word-break: break-word; }
+  .product-desc { overflow-wrap:anywhere; }
 }
 
 @media (min-width:768px){ .hero h1{font-size:2.4rem;} }
-@media (min-width: 960px) {
-  .product-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 992px) {
+  .container { padding-inline:24px; }
 }
 
 .pickup-info { background:#f3ece2; border:1px solid #e2d3c4; border-radius:10px; padding:.75rem; font-size:.92rem; color:#4b423b; }
