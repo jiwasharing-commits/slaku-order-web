@@ -41,6 +41,26 @@
       <div class="announce-track">🔥 Full menu Sabtu, Minggu & Senin • Selasa–Jumat menu pilihan • Order H-1 biar pasti kebagian</div>
     </div>
     <main class="container layout">
+      <section class="card" id="pickup-schedule-section">
+        <h2>Jadwal Order Slaku</h2>
+        <div class="schedule-box">
+          <p>Pilih hari pickup dulu ya. Menu dan jam pickup akan menyesuaikan otomatis.</p>
+          <p>Sabtu, Minggu & Senin: tersedia full menu.</p>
+          <p>Selasa–Jumat: tersedia menu pilihan seperti Matcha, Kopi Susu, Cheese Tart Mini/D10, dan Cheese Tart Slice.</p>
+          <p>Semua pesanan disiapkan berdasarkan order. Disarankan pesan H-1 agar pasti kebagian.</p>
+        </div>
+        <label>Hari Pickup
+          <select id="pickup-day" required>
+            <option value="">Pilih hari pickup</option>
+          </select>
+        </label>
+        <label>Jam Pickup
+          <select id="order-time" required disabled>
+            <option value="">Pilih hari pickup dulu</option>
+          </select>
+        </label>
+      </section>
+
       <section class="card" id="menu">
         <h2>Menu Slaku</h2>
         <p class="section-note">Pilih menu favoritmu, tambahkan ke keranjang, lalu checkout—pesanan akan otomatis diteruskan ke WhatsApp Slaku.</p>
@@ -68,25 +88,6 @@
             <label class="radio"><input type="radio" name="order-method" value="Pickup Mandiri / Pickup Kurir (Gojek/Maxim)" checked /> Pickup Mandiri / Pickup Kurir (Gojek/Maxim)</label>
             <p class="method-note">Pickup mandiri atau pickup kurir tersedia. Lokasi umum Slaku berada di area Ciceri, Kota Serang, Banten. Detail titik pickup akan dikonfirmasi oleh admin melalui WhatsApp setelah checkout.</p>
           </fieldset>
-
-          <div class="schedule-box">
-            <p><strong>Jadwal Order Slaku</strong></p>
-            <p>Pilih hari pickup dulu ya. Menu dan jam pickup akan menyesuaikan otomatis.</p>
-            <p>Sabtu, Minggu & Senin: tersedia full menu.</p>
-            <p>Selasa–Jumat: tersedia menu pilihan seperti Matcha, Kopi Susu, Cheese Tart Mini/D10, dan Cheese Tart Slice.</p>
-            <p>Semua pesanan disiapkan berdasarkan order. Disarankan pesan H-1 agar pasti kebagian.</p>
-          </div>
-          <label>Hari Pickup
-            <select id="pickup-day" required>
-              <option value="">Pilih hari pickup</option>
-            </select>
-          </label>
-          <label>Jam Pickup
-            <select id="order-time" required disabled>
-              <option value="">Pilih hari pickup dulu</option>
-            </select>
-          </label>
-
           <div class="order-info-grid">
             <div class="pickup-info">
               <p><strong>Info Pickup</strong></p>
