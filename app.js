@@ -264,13 +264,15 @@ function renderPickupDayOptions() {
   const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   const now = new Date();
   const baseJakarta = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+  const todayName = dayNames[baseJakarta.getDay()];
   const previous = el.pickupDay.value;
   let html = '<option value="">Pilih hari pickup</option>';
   for (let i = 1; i <= 7; i += 1) {
     const d = new Date(baseJakarta);
     d.setDate(baseJakarta.getDate() + i);
     const name = dayNames[d.getDay()];
-    html += `<option value="${name}">${name}</option>`;
+    const label = name === todayName ? `${name} depan` : name;
+    html += `<option value="${name}">${label}</option>`;
   }
   el.pickupDay.innerHTML = html;
   if (previous) el.pickupDay.value = previous;
