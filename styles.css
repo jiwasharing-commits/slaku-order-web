@@ -71,6 +71,8 @@ body {
 .layout > * { min-width: 0; }
 .card { background:var(--white); border-radius:14px; padding:1rem; box-shadow:0 8px 24px rgba(42,37,34,.08); }
 #menu { width:100%; max-width:860px; margin:0 auto; }
+#pickup-schedule-section,
+#customer-form-section { width:100%; max-width:860px; margin:0 auto; }
 .section-note { margin-top:-.25rem; color:#6B6B6B; }
 .filters { display:flex; gap:.5rem; flex-wrap:wrap; margin:.75rem 0 1rem; }
 .filter-btn { border:1px solid #dbcfc2; background:#fff; border-radius:999px; padding:.45rem .8rem; cursor:pointer; }
@@ -441,6 +443,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
   z-index: 1050;
 }
 .mini-cart-bar.hidden { display: none !important; }
+.floating-stack .mini-cart-bar { display: flex; }
 
 .mini-cart-summary {
   border: 0;

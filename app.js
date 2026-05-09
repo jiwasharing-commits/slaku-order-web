@@ -166,6 +166,7 @@ function updateFloatingCart() {
     el.miniCartSummary.textContent = "🛒 0 item • Total Rp0";
     el.miniCartBar.hidden = true;
     el.miniCartBar.classList.add("hidden");
+    el.miniCartBar.style.display = "none";
     document.body.classList.remove("mini-cart-visible");
     console.log("[cart-debug] total items", items, "mini cart hidden");
     return;
@@ -173,6 +174,7 @@ function updateFloatingCart() {
 
   el.miniCartBar.hidden = false;
   el.miniCartBar.classList.remove("hidden");
+  el.miniCartBar.style.display = "flex";
   document.body.classList.add("mini-cart-visible");
   el.miniCartSummary.textContent = `🛒 ${items} item • Total ${rupiah(total)}`;
   el.miniCartBar.classList.remove("mini-cart-pop");
