@@ -36,6 +36,7 @@ const el = {
   cartSection: document.getElementById("cart-section"),
   checkoutSection: document.getElementById("customer-form-section"),
   checkoutWarning: document.getElementById("checkout-warning"),
+  pickupSection: document.getElementById("pickup-schedule-section"),
   pickupDay: document.getElementById("pickup-day"),
   pickupTime: document.getElementById("order-time")
 };
@@ -289,6 +290,9 @@ function runWhatsAppCheckout() {
   }
   if (!formData.day || !formData.time) {
     showCheckoutWarning("Pilih hari dan jam pickup terlebih dahulu.");
+    if (el.pickupSection) el.pickupSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    const target = !formData.day ? el.pickupDay : el.pickupTime;
+    setTimeout(() => target?.focus(), 260);
     return;
   }
   const url = `https://wa.me/${waNumber(ADMIN_WHATSAPP_NUMBER)}?text=${encodeURIComponent(checkoutMessage(formData))}`;
@@ -411,8 +415,10 @@ if (el.miniCartCheckout && el.checkoutSection) {
       return;
     }
     if (!formData.day || !formData.time) {
-      el.checkoutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (el.pickupSection) el.pickupSection.scrollIntoView({ behavior: "smooth", block: "start" });
       showCheckoutWarning("Pilih hari dan jam pickup terlebih dahulu.");
+      const target = !formData.day ? el.pickupDay : el.pickupTime;
+      setTimeout(() => target?.focus(), 260);
       return;
     }
     runWhatsAppCheckout();
