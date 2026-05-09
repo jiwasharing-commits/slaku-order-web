@@ -47,9 +47,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 1.1rem 1rem;
+  gap: .2rem;
 }
+.hero .subtitle, .hero .trust-text, .hero .hero-helper { text-align: center; margin-left:auto; margin-right:auto; }
 .brand-badge {
   width: 50px;
   height: 50px;
@@ -304,6 +307,7 @@ fieldset { border:1px solid #e1d6ca; border-radius:8px; padding:.65rem .75rem; d
 .method-note a { color:#4A2E2A; font-weight:600; }
 .schedule-box { background:#f3ece2; border:1px solid #e3d4c6; border-radius:10px; padding:.72rem; font-size:.88rem; color:#4b423b; display:grid; gap:.28rem; }
 .schedule-box p { margin:0; }
+.pickup-guide-note { margin: .1rem 0 .55rem; font-size: .84rem; color: #5f4f43; background: #fff8ed; border: 1px solid #ecd9bf; border-radius: 8px; padding: .45rem .6rem; }
 .checkout-warning { margin: .1rem 0 -.15rem; font-size: .82rem; color: #8f2a2a; background: #fce9e9; border: 1px solid #f2c8c8; border-radius: 8px; padding: .45rem .55rem; }
 .terms-box { background:#f9efe4; border:1px solid #ead8c7; border-radius:10px; padding:.75rem; font-size:.9rem; }
 .terms-box p { margin:.1rem 0 .35rem; }

@@ -37,6 +37,8 @@ const el = {
   checkoutSection: document.getElementById("customer-form-section"),
   checkoutWarning: document.getElementById("checkout-warning"),
   pickupSection: document.getElementById("pickup-schedule-section"),
+  pickupGuideNote: document.getElementById("pickup-guide-note"),
+  heroWebOrderBtn: document.getElementById("hero-web-order-btn"),
   pickupDay: document.getElementById("pickup-day"),
   pickupTime: document.getElementById("order-time")
 };
@@ -383,6 +385,17 @@ if (el.pickupDay) {
 if (el.pickupTime) {
   el.pickupTime.addEventListener("change", () => {
     renderProducts();
+  });
+}
+
+if (el.heroWebOrderBtn && el.pickupSection) {
+  el.heroWebOrderBtn.addEventListener("click", () => {
+    if (!el.pickupGuideNote) return;
+    el.pickupGuideNote.hidden = false;
+    clearTimeout(el.pickupGuideNote.timerId);
+    el.pickupGuideNote.timerId = setTimeout(() => {
+      el.pickupGuideNote.hidden = true;
+    }, 2600);
   });
 }
 
